@@ -9,6 +9,8 @@
     "import/newline-after-import": 0,
     "no-console": 0,
     "no-shadow": 0,
+    "no-undef": 1,
+    "no-unused-vars": 1,
     "prefer-arrow-callback": 0
   }
 }

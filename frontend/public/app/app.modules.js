@@ -1,5 +1,3 @@
-/* global angular */
-
 const app = angular.module('rabattApp', ['ngRoute']);
 
 app.service('backend', function ($http) {

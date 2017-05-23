@@ -1,5 +1,3 @@
-/* global angular */
-
 const app = angular.module('rabattApp', ['ngRoute']);
 
 app.service('backend', function ($http) {
@@ -53,8 +51,6 @@ app.service('backend', function ($http) {
   };
 });
 
-/* global app */
-
 app.config(['$routeProvider', '$locationProvider',
   function ($routeProvider, $locationProvider) {
     $routeProvider.when('/', {
@@ -66,6 +62,18 @@ app.config(['$routeProvider', '$locationProvider',
   },
 ]);
 
+app.controller('discountController', function ($scope, backend) {
+
+});
+
 app.controller('homeController', function ($scope, backend) {
+
+});
+
+app.controller('loginController', function ($scope, backend) {
+
+});
+
+app.controller('registerController', function ($scope, backend) {
 
 });
