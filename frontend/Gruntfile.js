@@ -15,15 +15,47 @@ module.exports = function (grunt) {
         src: ['public/**/*.html'],
       },
     },
+    concurrent: {
+      tasks: ['nodemon', 'watch'],
+      options: {
+        logConcurrentOutput: true,
+      },
+    },
+    nodemon: {
+      dev: {
+        script: 'index.js',
+        options: {
+          ignore: ['README.md', 'node_modules/**', '.DS_Store'],
+          ext: 'js',
+          watch: ['index.js'],
+          delayTime: 1,
+          cwd: __dirname,
+        },
+      },
+    },
+    watch: {
+      js: {
+        files: ['public/**/*.js'],
+        tasks: ['eslint'],
+        options: {
+          livereload: true,
+        },
+      },
+      html: {
+        files: ['public/**'],
+        options: {
+          livereload: true,
+        },
+      },
+    },
   });
 
   // Load NPM tasks
-  grunt.loadNpmTasks('grunt-eslint');
-  grunt.loadNpmTasks('grunt-prettify');
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   // Making grunt default to force in order not to break the project.
   grunt.option('force', true);
 
   // Default task(s).
-  grunt.registerTask('default', ['eslint', 'prettify']);
+  grunt.registerTask('default', ['eslint', 'prettify', 'concurrent']);
 };
