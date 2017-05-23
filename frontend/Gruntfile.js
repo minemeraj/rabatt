@@ -35,8 +35,8 @@ module.exports = function (grunt) {
     },
     watch: {
       js: {
-        files: ['*.js', 'public/app/**/*.js'],
-        tasks: ['eslint'],
+        files: ['*.js', 'public/app/**/*.js', '!public/app/app.js'],
+        tasks: ['eslint', 'concat'],
         options: {
           livereload: true,
         },
@@ -48,6 +48,12 @@ module.exports = function (grunt) {
         },
       },
     },
+    concat: {
+      dist: {
+        src: ['public/app/app.modules.js', 'public/app/app.routes.js', 'public/app/components/**/*.js'],
+        dest: 'public/app/app.js',
+      },
+    },
   });
 
   // Load NPM tasks
@@ -57,5 +63,5 @@ module.exports = function (grunt) {
   grunt.option('force', true);
 
   // Default task(s).
-  grunt.registerTask('default', ['eslint', 'prettify', 'concurrent']);
+  grunt.registerTask('default', ['eslint', 'prettify', 'concat', 'concurrent']);
 };
