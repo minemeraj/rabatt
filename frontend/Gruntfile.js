@@ -35,14 +35,14 @@ module.exports = function (grunt) {
     },
     watch: {
       js: {
-        files: ['public/**/*.js'],
+        files: ['*.js', 'public/app/**/*.js'],
         tasks: ['eslint'],
         options: {
           livereload: true,
         },
       },
       html: {
-        files: ['public/**'],
+        files: ['public/**/*.html', '!public/libs/**'],
         options: {
           livereload: true,
         },
