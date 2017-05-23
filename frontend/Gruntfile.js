@@ -54,6 +54,12 @@ module.exports = function (grunt) {
         dest: 'public/app/app.js',
       },
     },
+    'gh-pages': {
+      options: {
+        base: 'public',
+      },
+      src: ['**'],
+    },
   });
 
   // Load NPM tasks
