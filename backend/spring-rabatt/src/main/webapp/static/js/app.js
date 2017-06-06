@@ -1,2 +1,5 @@
-var springPortfolio = angular
-    .module('springPortfolio', ['springPortfolio.controllers', 'springPortfolio.services']);
+'use strict';
+
+var App = angular.module('rabatt',[]);
+
+

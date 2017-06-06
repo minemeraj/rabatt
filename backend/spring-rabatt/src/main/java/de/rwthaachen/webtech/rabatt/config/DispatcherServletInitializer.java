@@ -14,33 +14,39 @@
  * limitations under the License.
  */
 
-package de.rwthaachen.webtech.portfolio.config;
+package de.rwthaachen.webtech.rabatt.config;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { WebSecurityConfig.class };
-	}
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class<?>[] { WebConfig.class, /*WebSecurityConfig.class*/ };
+    }
 
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] { WebConfig.class, WebSocketConfig.class };
-	}
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return null;
+    }
 
-	@Override
-	protected String[] getServletMappings() {
-		return new String[] { "/" };
-	}
+    @Override
+    protected String[] getServletMappings() {
+        return new String[] { "/" };
+    }
 
-	@Override
-	protected void customizeRegistration(Dynamic registration) {
-		registration.setInitParameter("dispatchOptionsRequest", "true");
-	}
+    @Override
+    protected void customizeRegistration(Dynamic registration) {
+        registration.setInitParameter("dispatchOptionsRequest", "true");
+    }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        Filter[] singleton = { new CORSFilter() };
+        return singleton;
+    }
 
 }
