@@ -2,7 +2,7 @@
 
 angular.module('rabatt').factory('UserService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8080/rabatt/user/';
+    var REST_SERVICE_URI = 'http://localhost:8080/rabatt/api/users/';
 
     var factory = {
         fetchAllUsers: fetchAllUsers,
@@ -18,7 +18,7 @@ angular.module('rabatt').factory('UserService', ['$http', '$q', function($http, 
         $http.get(REST_SERVICE_URI)
             .then(
             function (response) {
-                deferred.resolve(response.data);
+                deferred.resolve(response.data._embedded.users);
             },
             function(errResponse){
                 console.error('Error while fetching Users');

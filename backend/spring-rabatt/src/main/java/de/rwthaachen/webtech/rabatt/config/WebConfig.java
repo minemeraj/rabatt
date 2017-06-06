@@ -10,10 +10,12 @@ import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -34,6 +36,7 @@ import com.google.gson.GsonBuilder;
 @EnableWebMvc
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
+@Import(RepositoryRestMvcConfiguration.class)
 @ComponentScan(basePackages = "de.rwthaachen.webtech.rabatt")
 @EnableJpaRepositories("de.rwthaachen.webtech.rabatt.repository")
 public class WebConfig extends WebMvcConfigurerAdapter {
