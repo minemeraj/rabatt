@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.rwthaachen.webtech.portfolio.config;
+/*package de.rwthaachen.webtech.rabatt.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -22,11 +22,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 
-/**
+*//**
  * Customizes Spring Security configuration.
  *
  * @author Rob Winch
- */
+ *//*
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -68,3 +68,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.withUser("paulson").password("bond").roles("ADMIN","USER");
 	}
 }
+*/
