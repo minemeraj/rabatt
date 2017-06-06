@@ -35,8 +35,8 @@ angular.module('rabatt').controller('UserController', ['$scope', 'UserService', 
         );
     }
 
-    function updateUser(user, id){
-        UserService.updateUser(user, id)
+    function updateUser(user){
+        UserService.updateUser(user)
             .then(
             fetchAllUsers,
             function(errResponse){
@@ -45,8 +45,8 @@ angular.module('rabatt').controller('UserController', ['$scope', 'UserService', 
         );
     }
 
-    function deleteUser(id){
-        UserService.deleteUser(id)
+    function deleteUser(user){
+        UserService.deleteUser(user)
             .then(
             fetchAllUsers,
             function(errResponse){
@@ -60,28 +60,23 @@ angular.module('rabatt').controller('UserController', ['$scope', 'UserService', 
             console.log('Saving New User', self.user);
             createUser(self.user);
         }else{
-            updateUser(self.user, self.user.id);
+            updateUser(self.user);
             console.log('User updated with id ', self.user.id);
         }
         reset();
     }
 
-    function edit(id){
-        console.log('id to be edited', id);
-        for(var i = 0; i < self.users.length; i++){
-            if(self.users[i].id === id) {
-                self.user = angular.copy(self.users[i]);
-                break;
-            }
-        }
+    function edit(user){
+        console.log('id to be edited', user);
+                self.user = angular.copy(user);
     }
 
-    function remove(id){
-        console.log('id to be deleted', id);
-        if(self.user.id === id) {//clean form if the user to be deleted is shown there.
+    function remove(user){
+        console.log('id to be deleted', user);
+        if(self.user.id === user.id) {//clean form if the user to be deleted is shown there.
             reset();
         }
-        deleteUser(id);
+        deleteUser(user);
     }
 
 

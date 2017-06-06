@@ -44,9 +44,9 @@ angular.module('rabatt').factory('UserService', ['$http', '$q', function($http, 
     }
 
 
-    function updateUser(user, id) {
+    function updateUser(user) {
         var deferred = $q.defer();
-        $http.put(REST_SERVICE_URI+id, user)
+        $http.put(user._links.self.href, user)
             .then(
             function (response) {
                 deferred.resolve(response.data);
@@ -59,9 +59,9 @@ angular.module('rabatt').factory('UserService', ['$http', '$q', function($http, 
         return deferred.promise;
     }
 
-    function deleteUser(id) {
+    function deleteUser(user) {
         var deferred = $q.defer();
-        $http.delete(REST_SERVICE_URI+id)
+        $http.delete(user._links.self.href)
             .then(
             function (response) {
                 deferred.resolve(response.data);
