@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('rabatt').factory('UserService', ['$http', '$q', function($http, $q){
+angular.module('rabattApp').factory('UserService', ['$http', '$q', function($http, $q){
 
     var REST_SERVICE_URI = 'http://localhost:8080/rabatt/api/users/';
 
