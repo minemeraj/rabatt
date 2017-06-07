@@ -1,3 +1,12 @@
+target
+.project
+.classpath
+.settings
+*.iml
+/.idea/
+bin
+.gradle
+
 # Logs
 logs
 *.log
