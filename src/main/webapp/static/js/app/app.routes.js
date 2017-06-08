@@ -26,3 +26,12 @@ app.config([ '$routeProvider',
 		});
 	},
 ]);
+
+app.config([ '$routeProvider',
+	function($routeProvider) {
+		$routeProvider.when('/logout', {
+			templateUrl :'',
+			controller : 'LogoutController',
+		});
+	},
+]);

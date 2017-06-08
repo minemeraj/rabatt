@@ -1,6 +1,7 @@
 package de.rwthaachen.webtech.rabatt.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,116 +14,128 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
 
-	@Id
-	@GeneratedValue
-	private Integer id;
+    @Id
+    @GeneratedValue
+    private Integer id;
 
-	@Column(name = "user_name", unique = true)
-	private String username;
+    @Column(name = "user_name", unique = true)
+    private String username;
 
-	private String firstName;
-	
-	private String lastName;
+    private String firstName;
 
-	private String password;
+    private String lastName;
 
-	private String address;
+    private String password;
 
-	@ElementCollection
-	private List<String> permissions;
+    private String address;
+    
+    @Column(columnDefinition = "boolean default true")
+    private boolean enabled;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    private String role;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public boolean getEnabled() {
+        return enabled;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	@Column(unique = true)
-	private String email;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    @Column(unique = true)
+    private String email;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public List<String> getPermissions() {
-		return permissions;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPermissions(List<String> permissions) {
-		this.permissions = permissions;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof User))
-			return false;
-		User other = (User) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", address=" + address + ", email=" + email + "]";
-	}
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int)(id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof User))
+            return false;
+        User other = (User)obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", username=" + username + ", address=" + address + ", email=" + email + "]";
+    }
 
 }

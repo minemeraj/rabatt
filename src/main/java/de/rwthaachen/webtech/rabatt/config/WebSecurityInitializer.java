@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*package de.rwthaachen.webtech.rabatt.config;
+package de.rwthaachen.webtech.rabatt.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
-
-*//**
+/**
+ *
  * ServletContext initializer for Spring Security specific configuration such as
  * the chain of Spring Security filters.
  * <p>
@@ -26,6 +26,6 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
  * {@link de.rwthaachen.webtech.rabatt.config.WebSecurityConfig}.
  *
  * @author Rob Winch
- *//*
+ */
 public class WebSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
-}*/
+}

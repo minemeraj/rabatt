@@ -13,24 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*package de.rwthaachen.webtech.rabatt.config;
+package de.rwthaachen.webtech.rabatt.config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 
-*//**
+import de.rwthaachen.webtech.rabatt.service.UserService;
+
+/**
  * Customizes Spring Security configuration.
  *
  * @author Rob Winch
- *//*
+ */
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    UserService userService;
+    
+    @Autowired
+    DataSource dataSource;
+    
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -45,6 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/index.html")
 				.loginPage("/login.html")
 				.failureUrl("/login.html?error")
+				.usernameParameter("username")
+				.passwordParameter("password")
 				.permitAll()
 				.and()
 			.logout()
@@ -57,15 +74,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/webjars/**").permitAll()
 				.anyRequest().authenticated()
 				.and();
+				
 	}
 
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth
+/*		auth
 			.inMemoryAuthentication()
 				.withUser("fabrice").password("fab123").roles("USER").and()
-				.withUser("paulson").password("bond").roles("ADMIN","USER");
+				.withUser("paulson").password("bond").roles("ADMIN","USER");*/
+	    auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
 	}
+	
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        /** create my own authentication provider **/
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+    
+    @Bean
+    protected ShaPasswordEncoder passwordEncoder() {
+        return new ShaPasswordEncoder();
+    }
 }
-*/

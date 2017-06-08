@@ -3,16 +3,19 @@ package de.rwthaachen.webtech.rabatt.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import de.rwthaachen.webtech.rabatt.model.User;
 import de.rwthaachen.webtech.rabatt.repository.UserRepository;
 
+@Service
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
@@ -28,12 +31,9 @@ public class UserServiceImpl implements UserService {
 			throw new UsernameNotFoundException("Username " + arg0 + " not found");
 		}
 
-		List<String> permissions = user.getPermissions();
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		for (String permission : permissions) {
-			Permission p = new Permission(permission);
-			authorities.add(p);
-		}
+		Permission p = new Permission(user.getRole());
+		authorities.add(p);
 
 		UserInformations userDetails = new UserInformations(user.getUsername(), user.getPassword(), authorities);
 		userDetails.setFirstName(user.getFirstName());
