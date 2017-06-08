@@ -1,6 +1,9 @@
 package de.rwthaachen.webtech.rabatt.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,9 +20,32 @@ public class User {
 	@Column(name = "user_name", unique = true)
 	private String username;
 
+	private String firstName;
+	
+	private String lastName;
+
 	private String password;
 
 	private String address;
+
+	@ElementCollection
+	private List<String> permissions;
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
 	@Column(unique = true)
 	private String email;
@@ -62,6 +88,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<String> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<String> permissions) {
+		this.permissions = permissions;
 	}
 
 	@Override
