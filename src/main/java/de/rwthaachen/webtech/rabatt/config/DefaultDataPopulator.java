@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +18,9 @@ public class DefaultDataPopulator {
 
     @Autowired
     UserRepository userRepository;
-    
+
     @Autowired
-    ShaPasswordEncoder shaPasswordEncoder;
+    BCryptPasswordEncoder shaPasswordEncoder;
 
     @PostConstruct
     @Transactional
@@ -36,7 +36,7 @@ public class DefaultDataPopulator {
 
         User fabrice = new User();
         fabrice.setUsername("fabrice");
-        fabrice.setPassword(shaPasswordEncoder.encodePassword("fab123", null));
+        fabrice.setPassword(shaPasswordEncoder.encode("fab123"));
         fabrice.setEmail("fabrice@gmail.com");
         fabrice.setRole(AuthoritiesConstants.ADMIN);
         fabrice.setEnabled(true);
@@ -47,7 +47,7 @@ public class DefaultDataPopulator {
 
         User paulson = new User();
         paulson.setUsername("paulson");
-        paulson.setPassword(shaPasswordEncoder.encodePassword("bond", null));
+        paulson.setPassword(shaPasswordEncoder.encode("bond"));
         paulson.setEmail("paulson@gmail.com");
         paulson.setRole(AuthoritiesConstants.ADMIN);
         paulson.setEnabled(true);

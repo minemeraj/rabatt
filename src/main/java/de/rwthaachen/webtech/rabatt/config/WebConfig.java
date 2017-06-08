@@ -1,6 +1,5 @@
 package de.rwthaachen.webtech.rabatt.config;
 
-import java.util.List;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -16,8 +15,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -28,9 +25,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.resource.WebJarsResourceResolver;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 @Configuration
 @EnableWebMvc
@@ -68,20 +62,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(createGsonHttpMessageConverter());
-        super.configureMessageConverters(converters);
-    }
-
-    private GsonHttpMessageConverter createGsonHttpMessageConverter() {
-        Gson gson = new GsonBuilder()
-            //                .excludeFieldsWithoutExposeAnnotation()
-            .setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create();
-        GsonHttpMessageConverter gsonConverter = new GsonHttpMessageConverter();
-        gsonConverter.setGson(gson);
-        return gsonConverter;
-    }
 
     @Bean
     public DataSource dataSource() {

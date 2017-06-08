@@ -1,14 +1,14 @@
 package de.rwthaachen.webtech.rabatt.model;
 
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import de.rwthaachen.webtech.rabatt.util.BCryptPasswordDeserializer;
 
 @Entity
 @Table(name = "users")
@@ -25,6 +25,8 @@ public class User {
 
     private String lastName;
 
+    @Column(name="password", nullable = false, length = 60)
+    @JsonDeserialize(using = BCryptPasswordDeserializer.class )
     private String password;
 
     private String address;
