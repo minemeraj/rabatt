@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -70,8 +71,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.and()
 			.authorizeRequests()
-				.antMatchers("/static/**").permitAll()
+				.antMatchers("/assets/**").permitAll()
 				.antMatchers("/webjars/**").permitAll()
+				.antMatchers("/app/**").permitAll()
+				.antMatchers("/register.html").permitAll()
+				.antMatchers(HttpMethod.POST,"/api/users/").permitAll()
 				.anyRequest().authenticated()
 				.and();
 				

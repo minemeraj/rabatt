@@ -25,7 +25,7 @@ public class User {
 
     private String lastName;
 
-    @Column(name="password", nullable = false, length = 60)
+    @Column(name="password", nullable = false)
     @JsonDeserialize(using = BCryptPasswordDeserializer.class )
     private String password;
 
