@@ -2,7 +2,7 @@
 
 angular.module('rabattApp').factory('UserService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8080/rabatt/api/users/';
+    var REST_SERVICE_URI = 'api/users/';
 
     var factory = {
         fetchAllUsers: fetchAllUsers,
