@@ -2,9 +2,9 @@ package de.rwthaachen.webtech.rabatt.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -12,25 +12,24 @@ import de.rwthaachen.webtech.rabatt.util.BCryptPasswordDeserializer;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends AbstractCommonEntity {
 
-    @Id
-    @GeneratedValue
-    private Integer id;
-
-    @Column(name = "user_name", unique = true)
+    @Column(name = "user_name", nullable = false, unique = true)
     private String username;
+
+    @Column(unique = true)
+    private String email;
 
     private String firstName;
 
     private String lastName;
 
-    @Column(name="password", nullable = false)
-    @JsonDeserialize(using = BCryptPasswordDeserializer.class )
+    @Column(nullable = false)
+    @JsonDeserialize(using = BCryptPasswordDeserializer.class)
     private String password;
 
     private String address;
-    
+
     @Column(columnDefinition = "boolean default true")
     private boolean enabled;
 
@@ -58,17 +57,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    @Column(unique = true)
-    private String email;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -103,8 +91,6 @@ public class User {
         this.password = password;
     }
 
-
-
     public String getRole() {
         return role;
     }
@@ -115,10 +101,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int)(id ^ (id >>> 32));
-        return result;
+        return new HashCodeBuilder(17, 37).append(this.email).append(this.username).append(this.firstName).append(this.lastName).toHashCode();
     }
 
     @Override
@@ -130,14 +113,14 @@ public class User {
         if (!(obj instanceof User))
             return false;
         User other = (User)obj;
-        if (id != other.id)
+        if (getId() != other.getId())
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", username=" + username + ", address=" + address + ", email=" + email + "]";
+        return "User [id=" + getId() + ", username=" + username + ", address=" + address + ", email=" + email + "]";
     }
 
 }
