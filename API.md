@@ -24,6 +24,24 @@ ___
 
 Returns an [User](#user).
 
+#### Register a new user:
+
+    POST /api/v1/users
+
+Form data:
+
+| Field        | Description                   | Optional |
+| ------------ | ----------------------------- | -------- |
+| `username`   | The username of the user      | no       |
+| `email`      | The email address of the user | no       |
+| `first_name` | The user first name           | no       |
+| `last_name`  | The user second name          | no       |
+| `password`   | The user password             | no       |
+| `address`    | The user address              | yes      |
+| `avatar`     | The user avatar image         | yes      |
+
+Returns a new [User](#user).
+
 #### Getting the current user:
 
     GET /api/v1/users/verify_credentials
@@ -49,13 +67,13 @@ Form data:
 
 Query parameters:
 
-| Field             | Description                                                   | Optional   |
-| ----------------- | ------------------------------------------------------------- | ---------- |
-| `max_id`          | Get a list of blocks with ID less than this value             | yes        |
-| `since_id`        | Get a list of blocks with ID greater than this value          | yes        |
-| `limit`           | Maximum number of blocks to get (Default 40, Max 80)          | yes        |
+| Field      | Description                           | Optional   |
+| ---------- | ------------------------------------- | ---------- |
+| `keywords` | Keywords used to search discount      | yes        |
+| `offset`   | The start number of requested records | yes        |
+| `limit`    | Number of requested records           | yes        |
 
-#### Get single discount:
+#### Get a discount:
     GET /api/v1/discounts/:id
 
 Returns the [Discount](#discount).
@@ -66,7 +84,7 @@ Returns the [Discount](#discount).
 Form data:
 
 | Field         | Description                       | Optional   |
-| --------------| ----------------------------------| ---------- |
+| ------------- | --------------------------------- | ---------- |
 | `title`       | The title or name of the discount | no         |
 | `valid_from`  | Date the discount start           | no         |
 | `valid_until` | Date the discount end             | no         |
@@ -74,6 +92,26 @@ Form data:
 | `image`       | A base64 encoded image            | yes        |
 
 Returns the new [Discount](#discount).
+
+#### Updating a discount:
+    PUT /api/v1/discounts/:id
+
+Form data:
+
+| Field         | Description                       | Optional   |
+| ------------- | --------------------------------- | ---------- |
+| `title`       | The title or name of the discount | no         |
+| `valid_from`  | Date the discount start           | no         |
+| `valid_until` | Date the discount end             | no         |
+| `description` | Detail of the discount            | yes        |
+| `image`       | A base64 encoded image            | yes        |
+
+Returns the updated [Discount](#discount).
+
+#### Deleting a discount:
+    DELETE /api/v1/discounts/:id
+
+Returns an empty object.
 
 ___
 
@@ -99,7 +137,7 @@ ___
 ### Discount
 
 | Attribute                | Description                            | Nullable |
-| ------------------------ | ---------------------------------------| -------- |
+| ------------------------ | -------------------------------------- | -------- |
 | `id`                     | The ID of the discount                 | no       |
 | `title`                  | The title or name of the discount      | no       |
 | `valid_from`             | Date the discount start                | no       |
