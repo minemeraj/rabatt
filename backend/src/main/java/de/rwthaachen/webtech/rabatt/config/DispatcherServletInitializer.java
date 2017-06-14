@@ -44,7 +44,7 @@ public class DispatcherServletInitializer
 
   @Override
   protected Filter[] getServletFilters() {
-    Filter[] singleton = {new CORSFilter(), new JwtFilter()};
+    Filter[] singleton = {new CORSFilter()};
     return singleton;
   }
 
