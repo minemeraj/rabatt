@@ -1,17 +1,15 @@
 /*
  * Copyright 2002-2013 the original author or authors.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package de.rwthaachen.webtech.rabatt.config;
 
@@ -27,7 +25,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 
 import de.rwthaachen.webtech.rabatt.service.UserService;
@@ -41,67 +38,25 @@ import de.rwthaachen.webtech.rabatt.service.UserService;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserService userService;
-    
-    @Autowired
-    DataSource dataSource;
-    
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.csrf().disable()  // Refactor login form
+  @Autowired
+  UserService userService;
 
-			// See https://jira.springsource.org/browse/SPR-11496
-			.headers().addHeaderWriter(
-				new XFrameOptionsHeaderWriter(
-						XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)).and()
+  @Autowired
+  DataSource dataSource;
 
-			.formLogin()
-				.defaultSuccessUrl("/index.html")
-				.loginPage("/login.html")
-				.failureUrl("/login.html?error")
-				.usernameParameter("username")
-				.passwordParameter("password")
-				.permitAll()
-				.and()
-			.logout()
-				.logoutSuccessUrl("/login.html?logout")
-				.logoutUrl("/logout.html")
-				.permitAll()
-				.and()
-			.authorizeRequests()
-				.antMatchers("/assets/**").permitAll()
-				.antMatchers("/webjars/**").permitAll()
-				.antMatchers("/app/**").permitAll()
-				.antMatchers("/register.html").permitAll()
-				.antMatchers(HttpMethod.POST,"/api/users/").permitAll()
-				.anyRequest().authenticated()
-				.and();
-				
-	}
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.csrf().disable() // Refactor login form
+
+        // See https://jira.springsource.org/browse/SPR-11496
+        .headers()
+        .addHeaderWriter(
+            new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
+        .and()
 
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-/*		auth
-			.inMemoryAuthentication()
-				.withUser("fabrice").password("fab123").roles("USER").and()
-				.withUser("paulson").password("bond").roles("ADMIN","USER");*/
-	    auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-	}
-	
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        /** create my own authentication provider **/
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return authenticationProvider;
-    }
-    
-    @Bean
-    protected BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        .authorizeRequests().antMatchers("/assets/**").permitAll().antMatchers("/webjars/**")
+        .permitAll().and();
+
+  }
 }

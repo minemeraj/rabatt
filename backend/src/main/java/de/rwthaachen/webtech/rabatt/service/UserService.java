@@ -6,8 +6,8 @@ import de.rwthaachen.webtech.rabatt.model.User;
 
 public interface UserService extends UserDetailsService {
 
-	void saveUser(User user, String password);
+  void saveUser(User user, String password);
 
-	void saveUser(User user);
+  void saveUser(User user);
 
 }

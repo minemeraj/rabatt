@@ -13,30 +13,30 @@ import org.hibernate.annotations.UpdateTimestamp;
 @MappedSuperclass
 public abstract class AbstractCommonEntity extends AbstractEntityId {
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modify_date")
-    private Date modified;
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "modify_date")
+  private Date modified;
 
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_date")
-    private Date created;
+  @UpdateTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "create_date")
+  private Date created;
 
-    public Date getModified() {
-        return modified;
-    }
+  public Date getModified() {
+    return modified;
+  }
 
-    public void setModified(Date modified) {
-        this.modified = modified;
-    }
+  public void setModified(Date modified) {
+    this.modified = modified;
+  }
 
-    public Date getCreated() {
-        return created;
-    }
+  public Date getCreated() {
+    return created;
+  }
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+  public void setCreated(Date created) {
+    this.created = created;
+  }
 
 }
