@@ -25,6 +25,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 
 import de.rwthaachen.webtech.rabatt.service.UserService;
@@ -54,9 +55,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
         .and()
 
-
-        .authorizeRequests().antMatchers("/assets/**").permitAll().antMatchers("/webjars/**")
-        .permitAll().and();
-
+        .authorizeRequests()
+          .antMatchers("/assets/**").permitAll()
+          .antMatchers("/webjars/**").permitAll()
+          .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
 }

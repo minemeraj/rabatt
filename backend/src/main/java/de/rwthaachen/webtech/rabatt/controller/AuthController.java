@@ -17,6 +17,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
+@RequestMapping("/api/v1")
 public class AuthController {
 
   @Autowired
