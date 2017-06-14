@@ -51,8 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
 
         .authorizeRequests()
-          .antMatchers("/assets/**").permitAll()
-          .antMatchers("/webjars/**").permitAll()
+          .anyRequest().permitAll()
           .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
 }

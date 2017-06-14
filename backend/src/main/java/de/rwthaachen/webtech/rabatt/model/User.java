@@ -11,6 +11,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 @Entity
 @Table(name = "users")
@@ -27,7 +28,6 @@ public class User extends AbstractCommonEntity {
   private String lastName;
 
   @Column(nullable = false)
-  @JsonIgnore
   private String password;
 
   private String address;
@@ -90,10 +90,12 @@ public class User extends AbstractCommonEntity {
     this.email = email;
   }
 
+  @JsonIgnore
   public String getPassword() {
     return password;
   }
 
+  @JsonSetter
   public void setPassword(String password) {
     String salt = this.getId() + password;
     this.password = DigestUtils.sha256Hex(salt);

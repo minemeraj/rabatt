@@ -10,33 +10,40 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 @MappedSuperclass
 public abstract class AbstractCommonEntity extends AbstractEntityId {
 
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "modify_date")
-  private Date modified;
+  @Column(name = "created_at")
+  private Date createdAt;
 
   @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "create_date")
-  private Date created;
+  @Column(name = "updated_at")
+  private Date updatedAt;
 
-  public Date getModified() {
-    return modified;
+  @JsonIgnore
+  public Date getCreatedAt() {
+    return createdAt;
   }
 
-  public void setModified(Date modified) {
-    this.modified = modified;
+  @JsonSetter
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
   }
 
-  public Date getCreated() {
-    return created;
+  @JsonIgnore
+  public Date getUpdatedAt() {
+    return updatedAt;
   }
 
-  public void setCreated(Date created) {
-    this.created = created;
+  @JsonSetter
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
 }

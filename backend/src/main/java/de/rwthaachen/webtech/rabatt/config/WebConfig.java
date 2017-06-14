@@ -21,10 +21,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.resource.PathResourceResolver;
-import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 
 @Configuration
 @EnableWebMvc
@@ -54,16 +51,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
   public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
     configurer.enable();
   }
-
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-    registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/")
-        .resourceChain(false).addResolver(new WebJarsResourceResolver())
-        .addResolver(new PathResourceResolver());
-  }
-
-
 
   @Bean
   public DataSource dataSource() {
