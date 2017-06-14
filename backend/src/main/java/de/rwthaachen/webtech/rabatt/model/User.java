@@ -1,11 +1,16 @@
 package de.rwthaachen.webtech.rabatt.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -22,14 +27,20 @@ public class User extends AbstractCommonEntity {
   private String lastName;
 
   @Column(nullable = false)
+  @JsonIgnore
   private String password;
 
   private String address;
 
   @Column(columnDefinition = "boolean default true")
+  @JsonIgnore
   private boolean enabled;
 
+  @JsonIgnore
   private String role;
+
+  @OneToMany(mappedBy = "creator")
+  private List<Discount> discounts;
 
   public boolean getEnabled() {
     return enabled;

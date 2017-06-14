@@ -4,84 +4,124 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 @Entity
 @Table(name = "discounts")
 public class Discount extends AbstractCommonEntity {
 
-    @Column(nullable = false)
-    private String title;
+  @Column(nullable = false)
+  private String title;
 
-    private String description;
+  private String link;
 
-    @Column(name = "valid_from")
-    private Date validFrom;
+  private String category;
 
-    @Column(name = "valid_until")
-    private Date validUntil;
+  private String description;
 
-    private String image;
+  @Column(name = "valid_from")
+  private Date validFrom;
 
-    public String getTitle() {
-        return title;
-    }
+  @Column(name = "valid_until")
+  private Date validUntil;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  private String image;
 
-    public String getDescription() {
-        return description;
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "creator_id")
+  private User creator;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public String getLink() {
+    return link;
+  }
 
-    public Date getValidFrom() {
-        return validFrom;
-    }
+  public void setLink(String link) {
+    this.link = link;
+  }
 
-    public void setValidFrom(Date validFrom) {
-        this.validFrom = validFrom;
-    }
+  public String getCategory() {
+    return category;
+  }
 
-    public Date getValidUntil() {
-        return validUntil;
-    }
+  public void setCategory(String category) {
+    this.category = category;
+  }
 
-    public void setValidUntill(Date validUntil) {
-        this.validUntil = validUntil;
-    }
+  public User getCreator() {
+    return creator;
+  }
 
-    public String getImage() {
-        return image;
-    }
+  public void setCreator(User creator) {
+    this.creator = creator;
+  }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-    
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(this.title).toHashCode();
-    }
+  public void setValidUntil(Date validUntil) {
+    this.validUntil = validUntil;
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof User))
-            return false;
-        User other = (User)obj;
-        if (getId() != other.getId())
-            return false;
-        return true;
-    }
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public Date getValidFrom() {
+    return validFrom;
+  }
+
+  public void setValidFrom(Date validFrom) {
+    this.validFrom = validFrom;
+  }
+
+  public Date getValidUntil() {
+    return validUntil;
+  }
+
+  public void setValidUntill(Date validUntil) {
+    this.validUntil = validUntil;
+  }
+
+  public String getImage() {
+    return image;
+  }
+
+  public void setImage(String image) {
+    this.image = image;
+  }
+
+  @Override
+  public int hashCode() {
+    return new HashCodeBuilder(17, 37).append(this.title).toHashCode();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (!(obj instanceof User))
+      return false;
+    User other = (User) obj;
+    if (getId() != other.getId())
+      return false;
+    return true;
+  }
 
 }
