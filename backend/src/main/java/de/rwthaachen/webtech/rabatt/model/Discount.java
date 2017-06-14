@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.springframework.data.rest.core.annotation.RestResource;
 
 @Entity
 @Table(name = "discounts")

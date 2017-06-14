@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 import de.rwthaachen.webtech.rabatt.model.Discount;
