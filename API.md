@@ -6,11 +6,9 @@ API overview
 - [Methods](#methods)
   - [Users](#users)
   - [Discounts](#discounts)
-  - [Categories](#categories)
 - [Entities](#entities)
   - [User](#user)
   - [Discount](#discount)
-  - [Category](#category)
 
 ___
 
@@ -18,46 +16,26 @@ ___
 
 ### Users
 
-#### Fetching an user:
+#### Login:
 
-    GET /api/v1/users/:id
-
-Returns an [User](#user).
-
-#### Register a new user:
-
-    POST /api/v1/users
+    POST /api/v1/login
 
 Form data:
 
-| Field        | Description                   | Optional |
-| ------------ | ----------------------------- | -------- |
-| `username`   | The username of the user      | no       |
-| `email`      | The email address of the user | no       |
-| `first_name` | The user first name           | no       |
-| `last_name`  | The user second name          | no       |
-| `password`   | The user password             | no       |
-| `address`    | The user address              | yes      |
-| `avatar`     | The user avatar image         | yes      |
+| Field         | Description                       | Optional   |
+| ------------- | --------------------------------- | ---------- |
+| `username`    | The username of the user          | yes        |
+| `password`    | The password of the user          | yes        |
 
-Returns a new [User](#user).
+Returns the status true/false.
+{ status: true/false }
 
-#### Getting the current user:
+#### Logout:
 
-    GET /api/v1/users/verify_credentials
+    POST /api/v1/logout
 
-Returns the authenticated user's [User](#user).
-
-#### Updating the current user:
-
-    PATCH /api/v1/users/update_credentials
-
-Form data:
-
-| Field          | Description                                                                                                                            | Optional   |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| `display_name` | The name to display in the user's profile                                                                                              | yes        |
-| `avatar`       | A base64 encoded image to display as the user's avatar (e.g. `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADrCAYAAAA...`)       | yes        |
+Returns the status true/false.
+{ status: true/false }
 
 ### Discounts
 
@@ -67,11 +45,14 @@ Form data:
 
 Query parameters:
 
-| Field      | Description                           | Optional   |
-| ---------- | ------------------------------------- | ---------- |
-| `keywords` | Keywords used to search discount      | yes        |
-| `offset`   | The start number of requested records | yes        |
-| `limit`    | Number of requested records           | yes        |
+| Field      | Description                               | Optional   |
+| ---------- | ----------------------------------------- | ---------- |
+| `keywords` | Keywords used to search discount          | yes        |
+| `offset`   | The start number of requested records     | yes        |
+| `limit`    | Number of requested records               | yes        |
+| `sort`     | The sorting criteria of requested records | yes        |
+|            | 'hot': records have the highest vote      |            |
+|            | 'new': records have just created          |            |
 
 #### Get a discount:
     GET /api/v1/discounts/:id
@@ -83,13 +64,19 @@ Returns the [Discount](#discount).
 
 Form data:
 
-| Field         | Description                       | Optional   |
-| ------------- | --------------------------------- | ---------- |
-| `title`       | The title or name of the discount | no         |
-| `valid_from`  | Date the discount start           | no         |
-| `valid_until` | Date the discount end             | no         |
-| `description` | Detail of the discount            | yes        |
-| `image`       | A base64 encoded image            | yes        |
+| Field         | Description                       | Optional |
+| ------------- | --------------------------------- | -------- |
+| `id`          | The ID of the discount            | no       |
+| `title`       | The title or name of the discount | no       |
+| `price`       | The price of the discount         | no       |
+| `vote_temp`   | The number of vote of the discount| no       |
+| `link`        | The link to the discount          | no       |
+| `category`    | The category of the discount      | no       |
+| `valid_from`  | Date the discount start           | no       |
+| `valid_until` | Date the discount end             | no       |
+| `description` | Detail of the discount            | yes      |
+| `image`       | A base64 encoded image            | yes      |
+| `creator`     | The name of the discount's creator| no       |
 
 Returns the new [Discount](#discount).
 
@@ -98,20 +85,27 @@ Returns the new [Discount](#discount).
 
 Form data:
 
-| Field         | Description                       | Optional   |
-| ------------- | --------------------------------- | ---------- |
-| `title`       | The title or name of the discount | no         |
-| `valid_from`  | Date the discount start           | no         |
-| `valid_until` | Date the discount end             | no         |
-| `description` | Detail of the discount            | yes        |
-| `image`       | A base64 encoded image            | yes        |
+| Field         | Description                       | Optional |
+| ------------- | --------------------------------- | -------- |
+| `id`          | The ID of the discount            | no       |
+| `title`       | The title or name of the discount | no       |
+| `price`       | The price of the discount         | no       |
+| `vote_temp`   | The number of vote of the discount| no       |
+| `link`        | The link to the discount          | no       |
+| `category`    | The category of the discount      | no       |
+| `valid_from`  | Date the discount start           | no       |
+| `valid_until` | Date the discount end             | no       |
+| `description` | Detail of the discount            | yes      |
+| `image`       | A base64 encoded image            | yes      |
+| `creator`     | The name of the discount's creator| no       |
 
 Returns the updated [Discount](#discount).
 
 #### Deleting a discount:
     DELETE /api/v1/discounts/:id
 
-Returns an empty object.
+Returns the status true/false.
+{ status: true/false }
 
 ___
 
@@ -123,26 +117,24 @@ ___
 | ------------------------ | ---------------------------------------------------------------------------------- | -------- |
 | `id`                     | The ID of the user                                                                 | no       |
 | `username`               | The username of the user                                                           | no       |
-| `email`                  | The email address of the user                                                      | no       |
-| `first_name`             | The user first name                                                                | no       |
-| `last_name`              | The user second name                                                               | no       |
 | `password`               | The user password                                                                  | no       |
-| `address`                | The user address                                                                   | yes      |
-| `enabled`                | The user status                                                                    | no       |
-| `role`                   | The user role                                                                      | no       |
-| `avatar`                 | The user avatar image                                                              | yes      |
 | `created_at`             | The time the user was created                                                      | no       |
 | `updated_at`             | The time the user was last updated                                                 | no       |
 
 ### Discount
 
-| Attribute                | Description                            | Nullable |
-| ------------------------ | -------------------------------------- | -------- |
-| `id`                     | The ID of the discount                 | no       |
-| `title`                  | The title or name of the discount      | no       |
-| `valid_from`             | Date the discount start                | no       |
-| `valid_until`            | Date the discount end                  | no       |
-| `description`            | Detail of the discount                 | yes      |
-| `image`                  | A base64 encoded image                 | yes      |
-| `created_at`             | The time the discount was created      | no       |
-| `updated_at`             | The time the discount was last updated | no       |
+| Attribute                | Description                            | Nullable | Type    |
+| ------------------------ | -------------------------------------- | -------- | ------- |
+| `id`                     | The ID of the discount                 | no       | int     |
+| `title`                  | The title or name of the discount      | no       | string  |
+| `price`                  | The price of the discount              | no       | double  |
+| `vote_temp`              | The number of vote of the discount     | no       | int     |
+| `link`                   | The link to the discount               | no       | string  |
+| `category`               | The category of the discount           | no       | string  |
+| `valid_from`             | Date the discount start                | no       | date    |
+| `valid_until`            | Date the discount end                  | no       | date    |
+| `description`            | Detail of the discount                 | yes      | string  |
+| `image`                  | A base64 encoded image                 | yes      |         |
+| `creator`                | The name of the discount's creator     | no       | string  |
+| `created_at`             | The time the discount was created      | no       | date    |
+| `updated_at`             | The time the discount was last updated | no       | date    |
