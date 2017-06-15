@@ -4,6 +4,7 @@ services:
 
 variables:
   DOCKER_DRIVER: overlay
+  CONTAINER_IMAGE: registry.gitlab.com/aliariff/rabatt:${CI_COMMIT_SHA:0:8}
 
 stages:
   - build
@@ -24,9 +25,9 @@ docker-build:
   stage: package
   script:
   - cd backend
-  - docker build -t registry.gitlab.com/aliariff/rabatt/image .
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-  - docker push registry.gitlab.com/aliariff/rabatt/image
+  - docker build -t $CONTAINER_IMAGE
+  - docker push $CONTAINER_IMAGE
 
 deploy:
   stage: deploy
