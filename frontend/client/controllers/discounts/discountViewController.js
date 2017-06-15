@@ -1,9 +1,9 @@
 (function () {
   const injectParams = ['$scope', '$location', '$routeParams',
-    '$timeout', 'config', 'dataService', 'modalService'];
+    '$timeout', 'config', 'discountService', 'modalService'];
 
   const DiscountViewController = function ($scope, $location, $routeParams,
-    $timeout, config, dataService, modalService) {
+    $timeout, config, discountService, modalService) {
     const discountId = ($routeParams.discountId) ? parseInt($routeParams.discountId, 10) : 0;
     let onRouteChangeOff;
 
@@ -26,7 +26,7 @@
     }
 
     function getDiscountById(discountId) {
-      dataService.getDiscountById(discountId)
+      discountService.getDiscountById(discountId)
             .then(function (data) {
               $scope.$apply(function () {
                 $scope.discount = data;
@@ -37,7 +37,7 @@
     }
 
     function updateDiscount(discount) {
-      dataService.updateDiscount(discount).then(function () {
+      discountService.updateDiscount(discount).then(function () {
                 // TODO:
 
       }, function (error) {

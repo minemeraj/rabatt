@@ -1,9 +1,9 @@
 (function () {
   const injectParams = ['$scope', '$location', '$routeParams',
-    '$timeout', 'config', 'dataService', 'modalService'];
+    '$timeout', 'config', 'discountService', 'modalService'];
 
   const DiscountEditController = function ($scope, $location, $routeParams,
-    $timeout, config, dataService, modalService) {
+    $timeout, config, discountService, modalService) {
     const discountId = ($routeParams.discountId) ? parseInt($routeParams.discountId, 10) : 0;
     let onRouteChangeOff;
 
@@ -14,14 +14,14 @@
     $scope.saveDiscount = function () {
       if ($scope.editForm.$valid) {
         if (!$scope.discount.id) {
-          dataService.insertDiscount($scope.discount).then(function () {
+          discountService.insertDiscount($scope.discount).then(function () {
             onRouteChangeOff();
             $location.path('/discounts');
           }, function (error) {
             $scope.errorMessage = error.message;
           });
         } else {
-          dataService.updateDiscount($scope.discount).then(function () {
+          discountService.updateDiscount($scope.discount).then(function () {
             $scope.editForm.$dirty = false;
             $scope.updateStatus = true;
             $scope.title = 'Edit';
@@ -43,7 +43,7 @@
 
       modalService.showModal({}, modalOptions).then(function (result) {
         if (result === 'ok') {
-          dataService.deleteDiscount($scope.discount.id).then(function () {
+          discountService.deleteDiscount($scope.discount.id).then(function () {
             onRouteChangeOff();
             $location.path('/discounts');
           }, function (error) {
@@ -82,7 +82,7 @@
     }
 
     function getDiscountById(discountId) {
-      dataService.getDiscountById(discountId)
+      discountService.getDiscountById(discountId)
             .then(function (data) {
               $scope.$apply(function () {
                 $scope.discount = data;

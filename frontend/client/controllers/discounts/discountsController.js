@@ -1,10 +1,19 @@
 (function () {
   const injectParams = ['$scope', '$location', '$filter', '$window',
-    '$timeout', 'authService', 'dataService', 'modalService'];
+    '$timeout', 'authService', 'discountService', 'modalService', 'pagerService'];
 
   const DiscountsController = function ($scope, $location, $filter, $window,
-    $timeout, authService, dataService, modalService) {
+    $timeout, authService, discountService, modalService, pagerService) {
     $scope.discounts = [];
+    $scope.options = {
+      keyword: null,
+      page: 0,
+      size: 5,
+      sort: null,
+    };
+
+    $scope.pager = {};
+    $scope.setPage = setPage;
 
     $scope.upVote = function (index) {
       const item = $scope.discounts[index];
@@ -19,21 +28,34 @@
     };
 
     function init() {
+      getDiscounts(true);
+    }
+
+    function setPage(page) {
+      if (page < 1 || page > $scope.pager.totalPages) {
+        return;
+      }
+
+      $scope.pager = pagerService.getPager($scope.totalElements, page);
+      $scope.options.page = page - 1;
+      $scope.options.size = $scope.pager.pageSize;
       getDiscounts();
     }
 
-    function getDiscounts() {
-      dataService.getDiscounts($scope.currentPage - 1).then(function (data) {
-        $scope.$apply(function () {
-          $scope.discounts = data;
-        });
+    function getDiscounts(init) {
+      discountService.getDiscounts($scope.currentPage - 1).then(function (data) {
+        $scope.discounts = data._embedded.discounts;
+        $scope.totalElements = data.page.totalElements;
+        if (init) {
+          setPage(1);
+        }
       }, function (error) {
         $window.alert(`Sorry, an error occurred: ${error.data.message}`);
       });
     }
 
     function updateDiscount(discount) {
-      dataService.updateDiscount(discount).then(function () {
+      discountService.updateDiscount(discount).then(function () {
                 // TODO:
 
       }, function (error) {
