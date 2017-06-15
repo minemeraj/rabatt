@@ -1,5 +1,5 @@
-app.controller('registerController', function ($scope, $cookieStore) {
-  if ($cookieStore.get(COOKIES_KEY)) {
+app.controller('registerController', function ($scope, $rootScope) {
+  if ($rootScope.loggedIn) {
     $location.path('/');
   }
 });

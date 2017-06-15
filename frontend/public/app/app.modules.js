@@ -2,10 +2,13 @@ const app = angular.module('rabattApp', ['ngRoute', 'ngCookies']);
 const BACKEND_API = 'http://localhost:8080/rabatt/api/v1';
 const COOKIES_KEY = 'current_user';
 
-app.run(function ($rootScope, $location, AuthService) {
+app.run(function ($rootScope, $window, AuthService, $cookieStore) {
+  $rootScope.currentUser = $cookieStore.get(COOKIES_KEY);
+  $rootScope.loggedIn = !!$rootScope.currentUser;
   $rootScope.logout = function () {
     AuthService.logout();
-    $location.path('/');
+    $window.location.href = '/#';
+    $window.location.reload();
   };
 });
 

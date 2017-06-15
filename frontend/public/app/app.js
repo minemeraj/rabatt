@@ -2,10 +2,13 @@ const app = angular.module('rabattApp', ['ngRoute', 'ngCookies']);
 const BACKEND_API = 'http://localhost:8080/rabatt/api/v1';
 const COOKIES_KEY = 'current_user';
 
-app.run(function ($rootScope, $location, AuthService) {
+app.run(function ($rootScope, $window, AuthService, $cookieStore) {
+  $rootScope.currentUser = $cookieStore.get(COOKIES_KEY);
+  $rootScope.loggedIn = !!$rootScope.currentUser;
   $rootScope.logout = function () {
     AuthService.logout();
-    $location.path('/');
+    $window.location.href = '/#';
+    $window.location.reload();
   };
 });
 
@@ -125,8 +128,8 @@ app.controller('homeController', function ($scope) {
 
 });
 
-app.controller('loginController', function ($scope, AuthService, $rootScope, $location, $cookieStore) {
-  if ($cookieStore.get(COOKIES_KEY)) {
+app.controller('loginController', function ($scope, AuthService, $rootScope, $location, $window) {
+  if ($rootScope.loggedIn) {
     $location.path('/');
     return;
   }
@@ -142,7 +145,10 @@ app.controller('loginController', function ($scope, AuthService, $rootScope, $lo
         function (response) {
           AuthService.currentUser(response.token)
           .then(
-            $location.path('/'),
+            function (response) {
+              $window.location.href = '/';
+              $window.location.reload();
+            },
           );
         },
         function (errResponse) {
@@ -152,8 +158,8 @@ app.controller('loginController', function ($scope, AuthService, $rootScope, $lo
   };
 });
 
-app.controller('registerController', function ($scope, $cookieStore) {
-  if ($cookieStore.get(COOKIES_KEY)) {
+app.controller('registerController', function ($scope, $rootScope) {
+  if ($rootScope.loggedIn) {
     $location.path('/');
   }
 });

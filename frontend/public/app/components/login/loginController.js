@@ -1,5 +1,5 @@
-app.controller('loginController', function ($scope, AuthService, $rootScope, $location, $cookieStore) {
-  if ($cookieStore.get(COOKIES_KEY)) {
+app.controller('loginController', function ($scope, AuthService, $rootScope, $location, $window) {
+  if ($rootScope.loggedIn) {
     $location.path('/');
     return;
   }
@@ -15,7 +15,10 @@ app.controller('loginController', function ($scope, AuthService, $rootScope, $lo
         function (response) {
           AuthService.currentUser(response.token)
           .then(
-            $location.path('/'),
+            function (response) {
+              $window.location.href = '/';
+              $window.location.reload();
+            },
           );
         },
         function (errResponse) {
