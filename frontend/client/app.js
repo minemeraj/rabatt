@@ -1,7 +1,8 @@
 ﻿(function () {
 
-    var app = angular.module('rabattApp',
-        ['ngRoute', 'ui.bootstrap']);
+    var app = angular.module('rabattApp', ['ngRoute', 'ui.bootstrap', 'ngCookies']);
+    const BACKEND_API = 'http://localhost:8080/rabatt/api/v1';
+    const COOKIES_KEY = 'current_user';
 
     app.config(['$routeProvider', function ($routeProvider) {
         var viewBase = '/views/';
@@ -35,8 +36,8 @@
 
     app.run(['$rootScope', '$location', 'authService',
         function ($rootScope, $location, authService) {
-            
-            //Client-side security. Server-side framework MUST add it's 
+
+            //Client-side security. Server-side framework MUST add it's
             //own security as well since client-based security is easily hacked
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
                 if (next && next.$$route && next.$$route.secure) {

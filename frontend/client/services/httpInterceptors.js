@@ -1,35 +1,29 @@
-﻿(function () {
-
-    angular.module('rabattApp')
+(function () {
+  angular.module('rabattApp')
         .config(['$httpProvider', function ($httpProvider) {
+          const injectParams = ['$q', '$rootScope'];
 
-        var injectParams = ['$q', '$rootScope'];
-
-        var httpInterceptor401 = function ($q, $rootScope) {
-
-            var success = function (response) {
-                return response;
+          const httpInterceptor401 = function ($q, $rootScope) {
+            const success = function (response) {
+              return response;
             };
 
-            var error = function (res) {
-                if (res.status === 401) {
-                    //Raise event so listener (navbarController) can act on it
-                    $rootScope.$broadcast('redirectToLogin', null);
-                    return $q.reject(res);
-                }
+            const error = function (res) {
+              if (res.status === 401) {
+                    // Raise event so listener (navbarController) can act on it
+                $rootScope.$broadcast('redirectToLogin', null);
                 return $q.reject(res);
+              }
+              return $q.reject(res);
             };
 
             return function (promise) {
-                return promise.then(success, error);
+              return promise.then(success, error);
             };
+          };
 
-        };
+          httpInterceptor401.$inject = injectParams;
 
-        httpInterceptor401.$inject = injectParams;
-
-        $httpProvider.interceptors.push(httpInterceptor401);
-
-    }]);
-
+          $httpProvider.interceptors.push(httpInterceptor401);
+        }]);
 }());

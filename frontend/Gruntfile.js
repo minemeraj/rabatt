@@ -7,12 +7,12 @@ module.exports = function (grunt) {
         configFile: '.eslintrc.json',
         fix: true,
       },
-      target: ['*.js', 'public/app/**/*.js'],
+      target: ['*.js', 'client/controllers/**/*.js', 'client/services/**/*.js'],
     },
     prettify: {
       all: {
         expand: true,
-        src: ['public/**/*.html'],
+        src: ['client/**/*.html'],
       },
     },
     concurrent: {
@@ -35,28 +35,22 @@ module.exports = function (grunt) {
     },
     watch: {
       js: {
-        files: ['*.js', 'public/app/**/*.js', '!public/app/app.js'],
-        tasks: ['eslint', 'concat'],
+        files: ['*.js', 'client/controllers/**/*.js', 'client/services/**/*.js', '!client/app.js'],
+        tasks: ['eslint'],
         options: {
           livereload: true,
         },
       },
       html: {
-        files: ['public/**/*.html', '!public/libs/**'],
+        files: ['client/**/*.html', '!client/libs/**'],
         options: {
           livereload: true,
         },
       },
     },
-    concat: {
-      dist: {
-        src: ['public/app/app.modules.js', 'public/app/app.routes.js', 'public/app/services/**/*.js', 'public/app/components/**/*.js'],
-        dest: 'public/app/app.js',
-      },
-    },
     'gh-pages': {
       options: {
-        base: 'public',
+        base: 'client',
       },
       src: ['**'],
     },
@@ -69,5 +63,5 @@ module.exports = function (grunt) {
   grunt.option('force', true);
 
   // Default task(s).
-  grunt.registerTask('default', ['eslint', 'prettify', 'concat', 'concurrent']);
+  grunt.registerTask('default', ['eslint', 'prettify', 'concurrent']);
 };

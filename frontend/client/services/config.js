@@ -1,8 +1,6 @@
-﻿(function () {
+(function () {
+  const value = {
+  };
 
-    var value = {
-    };
-
-    angular.module('rabattApp').value('config', value);
-
+  angular.module('rabattApp').value('config', value);
 }());

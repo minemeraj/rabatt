@@ -1,79 +1,79 @@
-﻿<div class="view indent">
-    <div class="container">
-        <header>
-            <h3><span class="glyphicon glyphicon-user"></span> Discounts</h3>
-        </header>
-        <div class="row">
-            <div class="col-md-10">
-                <div class="navbar">
-                    <ul class="nav navbar-nav">
-                        <li class="toolbaritem">
-                            <a href="#!/discount/new">
-                                <span class="glyphicon glyphicon-plus"></span> Add Discount
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+<div class="view indent">
+  <div class="container">
+    <header>
+      <h3><span class="glyphicon glyphicon-user"></span> Discounts</h3>
+    </header>
+    <div class="row">
+      <div class="col-md-10">
+        <div class="navbar">
+          <ul class="nav navbar-nav">
+            <li class="toolbaritem">
+              <a href="#!/discount/new">
+                <span class="glyphicon glyphicon-plus"></span> Add Discount
+              </a>
+            </li>
+          </ul>
         </div>
-        <div class="container">
-            
-            <div class="" data-ng-repeat="item in discounts">
-                <div class="">
-                    <div class="">
-                        <div class="">
-                            <button><img class="" data-ng-src="images/{{ item.avatar }}" alt="Avatar"></button>
-                        </div>
-                        <div class="">
-                            <a href="" target="_self" class=""><span class="thread-price">{{ item.price }}</span></a>
-                        </div>
-                        <div class="">
-                            <a class="" data-ng-href="{{ item.link }}" target="_blank" rel="">
-                                <span class="">To the deal</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="">
-                        <div class="">
-                            <div class="">
-                                <strong class="">{{ item.voteTemp }}</strong>
-                            </div>
-                            <div class="">
-                                <button class="btn" title="Runtervoten" type="button" data-ng-click="upVote($index)">+</button>
-                                <button class="btn" title="Hochvoten" type="button" data-ng-click="downVote($index)">-</button>
-                            </div>
-                        </div>
-                        <div class="" href="">{{ item.category }}</a></div>
-                    </div>
-                    <div class="">
-                        <strong class="">
+      </div>
+    </div>
+    <div class="container">
+      <div class="" data-ng-repeat="item in discounts">
+        <div class="">
+          <div class="">
+            <div class="">
+              <button><img class="" data-ng-src="images/{{ item.avatar }}" alt="Avatar"></button>
+            </div>
+            <div class="">
+              <a href="" target="_self" class=""><span class="thread-price">{{ item.price }}</span></a>
+            </div>
+            <div class="">
+              <a class="" data-ng-href="{{ item.link }}" target="_blank" rel="">
+                <span class="">To the deal</span>
+              </a>
+            </div>
+          </div>
+          <div class="">
+            <div class="">
+              <div class="">
+                <strong class="">{{ item.voteTemp }}</strong>
+              </div>
+              <div class="">
+                <button class="btn" title="Runtervoten" type="button" data-ng-click="upVote($index)">+</button>
+                <button class="btn" title="Hochvoten" type="button" data-ng-click="downVote($index)">-</button>
+              </div>
+            </div>
+            <div class="" href="">{{ item.category }}</a>
+            </div>
+          </div>
+          <div class="">
+            <strong class="">
                             <a class="" href="#!/discount/{{item.id}}">{{ item.title }}</a>
                         </strong>
-                        
-                        <div class="">
-                            <a href="" class=""><span class="">{{ item.user }}</span></a>
-                            <time class="" datetime="{{ item.postDate }}">
-                                <span class="">Updated 1 hour ago</span>
-                            </time>
-                        </div>
-                        <div class="">
-                            {{ item.description }}
-                            <a class="" href="#!/discount/{{item.id}}" rel="nofollow">Read more</a>
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <br/>
+            <div class="">
+              <a href="" class=""><span class="">{{ item.user }}</span></a>
+              <time class="" datetime="{{ item.postDate }}">
+                <span class="">Updated 1 hour ago</span>
+              </time>
             </div>
-                    
-        </div>
-        <div class="container">
-            <div class="row" data-ng-show="discounts.length == 0">
-                <div class="col-span-12">
-                    <h4>No discount found</h4>
-                </div>
+            <div class="">
+              {{ item.description }}
+              <a class="" href="#!/discount/{{item.id}}" rel="nofollow">Read more</a>
             </div>
+          </div>
         </div>
-        <br /><br /><br />
+        <br/>
+        <br/>
+      </div>
     </div>
+    <div class="container">
+      <div class="row" data-ng-show="discounts.length == 0">
+        <div class="col-span-12">
+          <h4>No discount found</h4>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+  </div>
 </div>
