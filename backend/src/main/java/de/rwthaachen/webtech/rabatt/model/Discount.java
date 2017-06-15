@@ -22,6 +22,7 @@ public class Discount extends AbstractCommonEntity {
 
   private String category;
 
+  @Column(columnDefinition = "LONGTEXT")
   private String description;
 
   @Column(name = "valid_from")
@@ -30,6 +31,7 @@ public class Discount extends AbstractCommonEntity {
   @Column(name = "valid_until")
   private Date validUntil;
 
+  @Column(columnDefinition = "LONGTEXT")
   private String image;
 
   @ManyToOne(fetch = FetchType.LAZY)
