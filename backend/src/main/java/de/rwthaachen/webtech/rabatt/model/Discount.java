@@ -36,6 +36,17 @@ public class Discount extends AbstractCommonEntity {
   @JoinColumn(name = "creator_id")
   private User creator;
 
+  @Column(name = "vote_temp", columnDefinition = "int(11) default 0")
+  private int voteTemp;
+
+  public int getVoteTemp() {
+    return voteTemp;
+  }
+
+  public void setVoteTemp(int voteTemp) {
+    this.voteTemp = voteTemp;
+  }
+
   public String getLink() {
     return link;
   }

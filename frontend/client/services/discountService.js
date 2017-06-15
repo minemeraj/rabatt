@@ -11,7 +11,7 @@
           return response.data;
         },
         function (errResponse) {
-          return errResponse.data;
+          return errResponse;
         },
       );
     };
@@ -23,7 +23,7 @@
           return response.data;
         },
         function (errResponse) {
-          return errResponse.data;
+          return errResponse;
         },
       );
     };
@@ -38,7 +38,7 @@
           return response.data;
         },
         function (errResponse) {
-          return errResponse.data;
+          return errResponse;
         },
       );
     };
@@ -49,7 +49,7 @@
           return response.data;
         },
         function (errResponse) {
-          return errResponse.data;
+          return errResponse;
         },
       );
     };

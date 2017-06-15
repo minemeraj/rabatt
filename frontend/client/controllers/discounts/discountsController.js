@@ -18,13 +18,13 @@
     $scope.upVote = function (index) {
       const item = $scope.discounts[index];
       item.voteTemp += 1;
-      updateDiscount(item);
+      updateDiscount(item, index);
     };
 
     $scope.downVote = function (index) {
       const item = $scope.discounts[index];
       item.voteTemp -= 1;
-      updateDiscount(item);
+      updateDiscount(item, index);
     };
 
     function init() {
@@ -43,24 +43,27 @@
     }
 
     function getDiscounts(init) {
-      discountService.getDiscounts($scope.options).then(function (data) {
-        $scope.discounts = data._embedded.discounts;
-        $scope.totalElements = data.page.totalElements;
-        if (init) {
-          setPage(1);
-        }
-      }, function (error) {
-        $window.alert(`Sorry, an error occurred: ${error.data.message}`);
-      });
+      discountService.getDiscounts($scope.options).then(
+        function (data) {
+          $scope.discounts = data._embedded.discounts;
+          $scope.totalElements = data.page.totalElements;
+          if (init) {
+            setPage(1);
+          }
+        },
+        function (error) {
+          $window.alert(`Sorry, an error occurred: ${error.data.message}`);
+        });
     }
 
-    function updateDiscount(discount) {
-      discountService.updateDiscount(discount).then(function () {
-                // TODO:
-
-      }, function (error) {
-        $window.alert(`Sorry, an error occurred: ${error.data.message}`);
-      });
+    function updateDiscount(discount, index) {
+      discountService.updateDiscount(discount).then(
+        function (data) {
+          $scope.discounts[index] = data;
+        },
+        function (error) {
+          $window.alert(`Sorry, an error occurred: ${error.data.message}`);
+        });
     }
 
     init();
