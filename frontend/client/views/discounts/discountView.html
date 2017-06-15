@@ -1,0 +1,51 @@
+﻿<div class="view">
+    <div class="container">
+        <div>
+            <div class="">
+                <div class="">
+                    <strong class="">{{ discount.voteTemp }}</strong>
+                </div>
+                <div class="">
+                    <button class="btn" title="Runtervoten" type="button" data-ng-click="upVote($index)">+</button>
+                    <button class="btn" title="Hochvoten" type="button" data-ng-click="downVote($index)">-</button>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                {{ discount.category }}
+            </div>
+            <br />
+            <div class="row">
+                <h3>{{ discount.title }}</h3>
+            </div>
+            <br />
+            <div class="row">
+                <a class="btn btn-primary" href="#!/discount/{{ discount.id }}/edit">Edit</a>
+            </div>
+            <br />                     
+            <div class="row">
+                <div class="">
+                    <a href="" class=""><span class="">{{ discount.user }}</span></a>
+                    <time class="" datetime="{{ item.postDate }}">
+                        <span class="">Updated 1 hour ago</span>
+                    </time>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <strong>Price: {{ discount.price }}</strong>
+            </div>
+            <br />
+            <div class="row">
+                <a class="" data-ng-href="{{ discount.link }}" target="_blank" rel="">To the deal</a>
+            </div>
+            <br />
+            
+            <div class="row">
+                {{ discount.description }}
+            </div>
+            
+            
+        </div>
+    </div>
+</div>

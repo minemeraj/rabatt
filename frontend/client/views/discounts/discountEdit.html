@@ -1,0 +1,146 @@
+﻿<div class="view">
+    <div class="container">
+        <h3><span class="glyphicon glyphicon-edit"></span> Deal</h3>
+        <form name="editForm" novalidate>
+            <div class="discountEdit">
+                <div class="row">
+                    <div>
+                        Link to the deal:
+                    </div>
+                    <div>
+                        <input type="text" name="link" class="form-control" data-ng-model="discount.link" required />
+                        <span class="errorMessage" ng-show="editForm.link.$touched && editForm.link.$invalid">
+                            Link to the deal is required
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div>
+                        <h3>Details about the deal</h3>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div>
+                        Price:
+                    </div>
+                    <div>
+                        <input type="text" name="price" class="form-control" data-ng-model="discount.price" required />
+                        <span class="errorMessage" ng-show="editForm.price.$touched && editForm.price.$invalid">
+                            Price is required
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div>
+                        Heading:
+                    </div>
+                    <div>
+                        <input type="text" name="title" class="form-control" data-ng-model="discount.title" required />
+                        <span class="errorMessage" ng-show="editForm.title.$touched && editForm.title.$invalid">
+                            Heading is required
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div>
+                        Description:
+                    </div>
+                    <div>
+                        <textarea type="text" name="description" class="form-control" data-ng-model="discount.description" required ></textarea>
+                        <span class="errorMessage" ng-show="editForm.description.$touched && editForm.description.$invalid">
+                            Description is required
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div>
+                        Category:
+                    </div>
+                    <div>
+                        <input type="text" name="category" class="form-control" data-ng-model="discount.category" required />
+                        <span class="errorMessage" ng-show="editForm.category.$touched && editForm.category.$invalid">
+                            Category is required
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary" data-ng-click="saveDiscount()"
+                                ng-disabled="editForm.$invalid || !editForm.$dirty">
+                            Set your deal
+                        </button>
+                        &nbsp;&nbsp;
+                        <button class="btn btn-danger" data-ng-if="discount.id > 0" data-ng-click="deleteDiscount()">Delete</button>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+
+                <div class="">
+                    <h4>Preview</h4>
+                    <div class="">
+                        <div class="">
+                            <button data-ng-click="upload()">Upload your own image</button>
+                        </div>
+                        <div class="">
+                            <a href="" target="_self" class=""><span class="thread-price">{{ discount.price }}</span></a>
+                        </div>
+                        <div class="">
+                            <a class="" data-ng-href="{{ discount.link }}" target="_blank" rel="">
+                                <span class="">To the deal</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <div class="">
+                                <strong class="">New</strong>
+                            </div>
+                            <div class="">
+                                <button class="btn" title="Runtervoten" type="button">+</button>
+                                <button class="btn" title="Hochvoten" type="button">-</button>
+                            </div>
+                        </div>
+                        <div class="" href="">{{ discount.category }}</a></div>
+                    </div>
+                    <div class="">
+                        <strong class="">
+                            <a class="" href="">{{ discount.title }}</a>
+                        </strong>
+                        
+                        <div class="">
+                            <a href="" class=""><span class="">{{ discount.user }}</span></a>
+                            <time class="" datetime="{{ discount.postDate }}">
+                                <span class="">Updated 1 hour ago</span>
+                            </time>
+                        </div>
+                        <div class="">
+                            {{ discount.description }}
+                            <a class="" href="" rel="nofollow">Read more</a>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <div class="statusRow">
+                    <br />
+                    <div class="label label-success" data-ng-show="updateStatus">
+                        <span class="glyphicon glyphicon-thumbs-up icon-white"></span>&nbsp;&nbsp;Discount updated!
+                    </div>
+                </div>
+                <div class="statusRow">
+                    <br />
+                    <div class="label label-important" data-ng-show="errorMessage">
+                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>&nbsp;&nbsp;Error: {{ errorMessage }}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

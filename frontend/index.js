@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(`${__dirname}/client`));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: 'true' }));
 app.use(bodyParser.json());
