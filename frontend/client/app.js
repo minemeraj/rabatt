@@ -19,7 +19,7 @@ const COOKIES_KEY = 'current_user';
                 secure: true //This route requires an authenticated user
             })
             .when('/discount/:discountId', {
-                controller: 'DiscountViewController',
+                controller: 'DiscountsController',
                 templateUrl: viewBase + 'discounts/discountView.html'
             })
             .when('/discount/:discountId/edit', {

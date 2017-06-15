@@ -1,9 +1,10 @@
 (function () {
   const injectParams = ['$scope', '$location', '$filter', '$window',
-    '$timeout', 'authService', 'discountService', 'modalService', 'pagerService'];
+    '$timeout', 'authService', 'discountService', 'modalService', 'pagerService', '$routeParams'];
 
   const DiscountsController = function ($scope, $location, $filter, $window,
-    $timeout, authService, discountService, modalService, pagerService) {
+    $timeout, authService, discountService, modalService, pagerService, $routeParams) {
+    const discountId = ($routeParams.discountId) ? parseInt($routeParams.discountId, 10) : 0;
     $scope.discounts = [];
     $scope.options = {
       keyword: null,
@@ -28,7 +29,11 @@
     };
 
     function init() {
-      getDiscounts(true);
+      if (discountId > 0) {
+        getDiscountById(discountId);
+      } else {
+        getDiscounts(true);
+      }
     }
 
     function setPage(page) {
@@ -50,6 +55,17 @@
           if (init) {
             setPage(1);
           }
+        },
+        function (error) {
+          $window.alert(`Sorry, an error occurred: ${error.data.message}`);
+        });
+    }
+
+    function getDiscountById(discountId) {
+      discountService.getDiscountById(discountId).then(
+        function (data) {
+          console.log(data);
+          $scope.discount = data;
         },
         function (error) {
           $window.alert(`Sorry, an error occurred: ${error.data.message}`);

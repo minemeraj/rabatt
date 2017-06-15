@@ -43,7 +43,7 @@
 
       modalService.showModal({}, modalOptions).then(function (result) {
         if (result === 'ok') {
-          discountService.deleteDiscount($scope.discount.id).then(function () {
+          discountService.deleteDiscount($scope.discount).then(function () {
             onRouteChangeOff();
             $location.path('/discounts');
           }, function (error) {
@@ -84,9 +84,7 @@
     function getDiscountById(discountId) {
       discountService.getDiscountById(discountId)
             .then(function (data) {
-              $scope.$apply(function () {
-                $scope.discount = data;
-              });
+              $scope.discount = data;
             }, function (error) {
               $window.alert(`Sorry, an error occurred: ${error.data.message}`);
             });

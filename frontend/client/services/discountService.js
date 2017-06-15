@@ -43,7 +43,7 @@
       );
     };
 
-    factory.deleteDiscount = function (id) {
+    factory.deleteDiscount = function (discount) {
       return $http.delete(discount._links.self.href).then(
         function (response) {
           return response.data;

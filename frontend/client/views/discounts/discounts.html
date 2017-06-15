@@ -10,7 +10,7 @@
       <h3>{{discount.title}}</h3>
       <h4>{{discount.category}}</h4>
       <div class="">
-        <strong class="">{{ discount.voteTemp }}</strong>
+        <strong class="">Like: {{ discount.voteTemp }}</strong>
       </div>
       <div class="">
         <button class="btn" title="Runtervoten" type="button" data-ng-click="upVote($index)">+</button>
@@ -23,27 +23,24 @@
         </time>
       </div>
       <div class="">
-        {{ discount.description }}
+        {{ discount.description.substring(0, 100) }}
         <a class="" href="#!/discount/{{discount.id}}" rel="nofollow">Read more</a>
       </div>
-      <p>{{discount.description}}</p>
       <a class="btn btn-primary" href="#!/discount/{{discount.id}}">View More <span class="glyphicon glyphicon-chevron-right"></span></a>
     </div>
     <div class="col-md-4">
       <a href="#">
-        <img class="img-responsive" src="http://placehold.it/700x300" alt="">
+        <img class="img-responsive" src="{{discount.image}}" alt="">
       </a>
     </div>
   </div>
   <hr>
 </div>
-
 <div class="row" data-ng-show="discounts.length == 0">
   <div class="col-span-12">
     <h4>No discount found</h4>
   </div>
 </div>
-
 <!-- /.row -->
 <!-- Pagination -->
 <div class="row text-center" data-ng-show="discounts.length > 0">

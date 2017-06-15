@@ -34,7 +34,7 @@ public class Discount extends AbstractCommonEntity {
   @Column(columnDefinition = "LONGTEXT")
   private String image;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "creator_id")
   private User creator;
 
