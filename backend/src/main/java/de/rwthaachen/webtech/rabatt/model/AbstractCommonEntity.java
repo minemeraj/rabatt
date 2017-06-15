@@ -10,9 +10,6 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
-
 @MappedSuperclass
 public abstract class AbstractCommonEntity extends AbstractEntityId {
 
@@ -26,22 +23,18 @@ public abstract class AbstractCommonEntity extends AbstractEntityId {
   @Column(name = "updated_at")
   private Date updatedAt;
 
-  @JsonIgnore
   public Date getCreatedAt() {
     return createdAt;
   }
 
-  @JsonSetter
   public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
   }
 
-  @JsonIgnore
   public Date getUpdatedAt() {
     return updatedAt;
   }
 
-  @JsonSetter
   public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
   }
