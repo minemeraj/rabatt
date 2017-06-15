@@ -1,55 +1,53 @@
 (function () {
-  const injectParams = ['$http', '$rootScope'];
+  const injectParams = ['$http', '$rootScope', '$cookieStore'];
 
-  const authFactory = function ($http, $rootScope) {
-    const serviceBase = '/api/v1/',
-      factory = {
-        loginPath: '/login',
-        user: {
-          isAuthenticated: false,
-          roles: null,
-        },
+  const authFactory = function ($http, $rootScope, $cookieStore) {
+    const factory = {
+      user: {
+        data: $cookieStore.get(COOKIES_KEY),
+        isAuthenticated: !!$cookieStore.get(COOKIES_KEY),
+      },
+    };
+
+    factory.login = function (username, password) {
+      data = {
+        username,
+        password,
       };
+      return $http.post(`${BACKEND_API}/login`, data).then(
+        function (results) {
+          return factory.currentUser(results.data.token);
+        },
+        function (err) {
+          return err;
+        });
+    };
 
-    factory.login = function (email, password) {
-            // TODO: FAKE data, remove this one
-      return new Promise(function (resolve, reject) {
-        const loggedIn = true;
-        changeAuth(loggedIn);
-        resolve(loggedIn);
-      });
-            // TODO: UNMARK below and remove above code when api is ready
-            // return $http.post(serviceBase + 'login', { userLogin: { userName: email, password: password } }).then(
-            //     function (results) {
-            //         var loggedIn = results.data.status;;
-            //         changeAuth(loggedIn);
-            //         return loggedIn;
-            //     });
+    factory.currentUser = function (token) {
+      $http.defaults.headers.common.Authorization = `Bearer ${token}`;
+      return $http.get(`${BACKEND_API}/current_user`).then(
+        function (results) {
+          $cookieStore.put(COOKIES_KEY, results.data);
+          changeAuth();
+          return results;
+        },
+        function (err) {
+          changeAuth();
+          return err;
+        },
+      );
     };
 
     factory.logout = function () {
-            // TODO: FAKE data, remove this one
-      return new Promise(function (resolve, reject) {
-        const loggedIn = true;
-        changeAuth(loggedIn);
-        resolve(loggedIn);
-      });
-            // TODO: UNMARK below and remove above code when api is ready
-            // return $http.post(serviceBase + 'logout').then(
-            //     function (results) {
-            //         var loggedIn = !results.data.status;
-            //         changeAuth(loggedIn);
-            //         return loggedIn;
-            //     });
+      delete $http.defaults.headers.common.Authorization;
+      $cookieStore.remove(COOKIES_KEY);
+      factory.user = {};
+      changeAuth();
     };
 
-    factory.redirectToLogin = function () {
-      $rootScope.$broadcast('redirectToLogin', null);
-    };
-
-    function changeAuth(loggedIn) {
-      factory.user.isAuthenticated = loggedIn;
-      $rootScope.$broadcast('loginStatusChanged', loggedIn);
+    function changeAuth() {
+      factory.user.data = $cookieStore.get(COOKIES_KEY);
+      factory.user.isAuthenticated = !!$cookieStore.get(COOKIES_KEY);
     }
 
     return factory;

@@ -1,33 +1,29 @@
 (function () {
-  const injectParams = ['$scope', '$location', '$routeParams', 'authService'];
+  const injectParams = ['$scope', '$routeParams', 'authService', '$location'];
 
-  const LoginController = function ($scope, $location, $routeParams, authService) {
-    let path = '/';
+  const LoginController = function ($scope, $routeParams, authService, $location) {
+    if (authService.user.isAuthenticated) {
+      $location.path('/');
+      return;
+    }
 
-    $scope.email = null;
-    $scope.password = null;
+    $scope.username = 'fabrice';
+    $scope.password = 'fab123';
     $scope.errorMessage = null;
 
     $scope.login = function () {
-      authService.login($scope.email, $scope.password).then(function (status) {
-                // $routeParams.redirect will have the route
-                // they were trying to go to initially
-        if (!status) {
-          $scope.errorMessage = 'Unable to login';
-          return;
-        }
-
-        if (status && $routeParams && $routeParams.redirect) {
-          path += $routeParams.redirect;
-        }
-
-        $location.path(path);
-      });
+      authService.login($scope.username, $scope.password).then(
+        function (results) {
+          if (results.status !== 200) {
+            $scope.errorMessage = results.data.message;
+          } else {
+            $location.path('/');
+          }
+        });
     };
   };
 
   LoginController.$inject = injectParams;
 
-  angular.module('rabattApp')
-        .controller('LoginController', LoginController);
+  angular.module('rabattApp').controller('LoginController', LoginController);
 }());

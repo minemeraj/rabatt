@@ -1,49 +1,33 @@
-<div class="view">
-  <div class="container">
-    <header>
-      <h3><span class="glyphicon glyphicon-lock"></span> Login</h3>
-    </header>
-    <form name="loginForm" novalidate>
-      <div class="login">
-        <div class="row">
-          <div class="col-md-2">
-            Email:
-          </div>
-          <div class="col-md-10">
-            <input type="email" name="email" class="form-control" data-ng-model="email" required />
-            <span class="errorMessage" ng-show="loginForm.email.$touched && loginForm.email.$invalid">
-                            Email is required
-                        </span>
-          </div>
+<div class="login-box">
+  <!-- /.login-logo -->
+  <div class="register-logo">
+    <a href="#!/"><b>Discount</b>Info</a>
+  </div>
+  <div class="login-box-body">
+    <div class="alert alert-danger" role="alert" data-ng-show="errorMessage">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Error:</span>
+      {{ errorMessage }}
+    </div>
+    <p class="login-box-msg">Sign in to start your session</p>
+    <form>
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Username" ng-model="username">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Password" ng-model="password">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="button" class="btn btn-primary btn-block btn-flat" ng-click="login()">Sign In</button>
         </div>
-        <br />
-        <div class="row">
-          <div class="col-md-2">
-            Password:
-          </div>
-          <div class="col-md-10">
-            <input type="password" name="password" class="form-control" data-ng-model="password" data-ng-minlength="6" required />
-            <span class="errorMessage" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
-                            Password is required
-                        </span>
-          </div>
-        </div>
-        <br />
-        <div class="row">
-          <div class="col-md-12">
-            <button type="submit" class="btn btn-primary" data-ng-click="login()" ng-disabled="loginForm.$invalid || !loginForm.$dirty">
-              Login
-            </button>
-          </div>
-        </div>
-        <br />
-        <div class="statusRow">
-          <br />
-          <div class="label label-important" data-ng-show="errorMessage">
-            <span class="glyphicon glyphicon-thumbs-down icon-white"></span>&nbsp;&nbsp;Error: {{ errorMessage }}
-          </div>
-        </div>
+        <!-- /.col -->
       </div>
     </form>
+    <a href="#!/register" class="text-center">Register a new membership</a>
   </div>
+  <!-- /.login-box-body -->
 </div>

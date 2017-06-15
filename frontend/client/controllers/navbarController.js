@@ -1,7 +1,7 @@
 (function () {
-  const injectParams = ['$scope', '$location', 'config', 'authService'];
+  const injectParams = ['$scope', '$location', 'config', 'authService', '$window'];
 
-  const NavbarController = function ($scope, $location, config, authService) {
+  const NavbarController = function ($scope, $location, config, authService, $window) {
     const appTitle = 'Discount Management';
 
     $scope.isCollapsed = false;
@@ -11,36 +11,10 @@
       return $location.path().substr(0, path.length) === path;
     };
 
-    $scope.loginOrOut = function () {
-      setLoginLogoutText();
-      const isAuthenticated = authService.user.isAuthenticated;
-      if (isAuthenticated) { // logout
-        authService.logout().then(function () {
-          $location.path('/');
-        });
-      }
-      redirectToLogin();
+    $scope.logout = function () {
+      authService.logout();
+      $window.location.href = '/';
     };
-
-    function redirectToLogin() {
-      const path = `/login${$location.$$path}`;
-      $location.replace();
-      $location.path(path);
-    }
-
-    $scope.$on('loginStatusChanged', function (loggedIn) {
-      setLoginLogoutText(loggedIn);
-    });
-
-    $scope.$on('redirectToLogin', function () {
-      redirectToLogin();
-    });
-
-    function setLoginLogoutText() {
-      $scope.loginLogoutText = (authService.user.isAuthenticated) ? 'Logout' : 'Login';
-    }
-
-    setLoginLogoutText();
   };
 
   NavbarController.$inject = injectParams;
