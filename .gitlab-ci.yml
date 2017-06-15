@@ -32,4 +32,4 @@ k8s-deploy:
   image: google/cloud-sdk
   stage: deploy
   script:
-  - echo "deploying..."
+  - echo "deploying...."
