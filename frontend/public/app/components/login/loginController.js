@@ -10,20 +10,18 @@ app.controller('loginController', function ($scope, AuthService, $rootScope, $lo
   };
 
   $scope.submit = function () {
-    AuthService.login($scope.data)
-      .then(
-        function (response) {
-          AuthService.currentUser(response.token)
-          .then(
-            function (response) {
-              $window.location.href = '/';
-              $window.location.reload();
-            },
-          );
-        },
-        function (errResponse) {
-          console.error(errResponse);
-        },
+    AuthService.login($scope.data).then(
+      function (response) {
+        AuthService.currentUser(response.token).then(
+          function (response) {
+            $window.location.href = '/';
+            $window.location.reload();
+          },
+        );
+      },
+      function (errResponse) {
+        console.error(errResponse);
+      },
     );
   };
 });

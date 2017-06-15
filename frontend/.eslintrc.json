@@ -8,10 +8,14 @@
     "global-require": 0,
     "import/newline-after-import": 0,
     "no-console": 0,
+    "no-mixed-operators": 1,
     "no-param-reassign": 1,
     "no-shadow": 0,
     "no-undef": 1,
+    "no-underscore-dangle": 1,
     "no-unused-vars": 1,
+    "no-use-before-define": 1,
+    "one-var": 1,
     "prefer-arrow-callback": 0
   }
 }
