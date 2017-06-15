@@ -43,7 +43,7 @@
     }
 
     function getDiscounts(init) {
-      discountService.getDiscounts($scope.currentPage - 1).then(function (data) {
+      discountService.getDiscounts($scope.options).then(function (data) {
         $scope.discounts = data._embedded.discounts;
         $scope.totalElements = data.page.totalElements;
         if (init) {
