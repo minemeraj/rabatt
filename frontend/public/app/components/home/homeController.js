@@ -1,3 +1,3 @@
-app.controller('homeController', function ($scope, backend) {
+app.controller('homeController', function ($scope) {
 
 });

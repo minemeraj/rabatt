@@ -1,3 +1,3 @@
-app.controller('discountController', function ($scope, backend) {
+app.controller('discountController', function ($scope) {
 
 });

@@ -1,52 +1,52 @@
-const app = angular.module('rabattApp', ['ngRoute']);
+const app = angular.module('rabattApp', ['ngRoute', 'ngCookies']);
+const BACKEND_API = 'http://localhost:8080/rabatt/api/v1';
+const COOKIES_KEY = 'current_user';
 
-app.service('backend', function ($http) {
-  this.get = function (address, data, callback) {
-    $http.get(address, data).success((data, status) => {
-      if (status === 200) {
-        callback(null, data);
-      } else {
-        callback(new Error(`Error ${status}`));
-      }
-    }).error(() => {
-      callback(new Error('Error No Response'));
-    });
-  };
-
-  this.post = function (address, data, callback) {
-    $http.post(address, data).success((data, status) => {
-      if (status === 200) {
-        callback(null, data);
-      } else {
-        callback(new Error(`Error ${status}`));
-      }
-    }).error(() => {
-      callback(new Error('Error No Response'));
-    });
-  };
-
-
-  this.put = function (address, data, callback) {
-    $http.put(address, data).success((data, status) => {
-      if (status === 200) {
-        callback(null, data);
-      } else {
-        callback(new Error(`Error ${status}`));
-      }
-    }).error(() => {
-      callback(new Error('Error No Response'));
-    });
-  };
-
-  this.delete = function (address, data, callback) {
-    $http.delete(address, data).success((data, status) => {
-      if (status === 200) {
-        callback(null, data);
-      } else {
-        callback(new Error(`Error ${status}`));
-      }
-    }).error(() => {
-      callback(new Error('Error No Response'));
-    });
+app.run(function ($rootScope, $location, AuthService) {
+  $rootScope.logout = function () {
+    AuthService.logout();
+    $location.path('/');
   };
 });
+
+app.factory('FlashService', ['$rootScope', function ($rootScope) {
+  function clearFlashMessage() {
+    const flash = $rootScope.flash;
+    if (flash) {
+      if (!flash.keepAfterLocationChange) {
+        delete $rootScope.flash;
+      } else {
+                        // only keep for a single location change
+        flash.keepAfterLocationChange = false;
+      }
+    }
+  }
+
+  function initService() {
+    $rootScope.$on('$locationChangeStart', function () {
+      clearFlashMessage();
+    });
+  }
+
+  function Success(message, keepAfterLocationChange) {
+    $rootScope.flash = {
+      message,
+      type: 'success',
+      keepAfterLocationChange,
+    };
+  }
+
+  function Error(message, keepAfterLocationChange) {
+    $rootScope.flash = {
+      message,
+      type: 'error',
+      keepAfterLocationChange,
+    };
+  }
+
+  const service = {};
+  initService();
+  service.Success = Success;
+  service.Error = Error;
+  return service;
+}]);

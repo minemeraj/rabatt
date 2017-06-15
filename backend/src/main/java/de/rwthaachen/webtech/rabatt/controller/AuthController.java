@@ -1,6 +1,7 @@
 package de.rwthaachen.webtech.rabatt.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -32,13 +33,11 @@ public class AuthController {
   public ResponseEntity<?> login(@RequestBody User login) {
 
     String jwtToken = "";
-
-    System.out.print(login.getUsername());
-    System.out.print(login.getPassword());
+    HashMap<String, String> result = new HashMap<String, String>();
 
     if (login.getUsername() == null || login.getPassword() == null) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
-          .body("Please fill in username and password");
+      result.put("message", "Please fill in username and password");
+      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(result);
     }
 
     String username = login.getUsername();
@@ -47,27 +46,31 @@ public class AuthController {
     List<User> users = userRepository.findByUsername(username);
 
     if (users.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username not found");
+      result.put("message", "Username not found");
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
     }
 
     User user = users.get(0);
     String pwd = user.getPassword();
 
     if (!password.equals(pwd)) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-          .body("Invalid login. Please check your name and password.");
+      result.put("message", "Invalid login. Please check your name and password.");
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);
     }
 
     jwtToken = Jwts.builder().setSubject(username).claim("roles", "user").setIssuedAt(new Date())
         .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
 
-    return ResponseEntity.status(HttpStatus.OK).body(jwtToken);
+    result.put("token", jwtToken);
+    return ResponseEntity.status(HttpStatus.OK).body(result);
   }
 
   @RequestMapping(value = "/current_user", method = RequestMethod.GET,
       produces = "application/json")
   public ResponseEntity<?> currentUser(@RequestHeader(value = "Authorization") String authHeader)
       throws ServletException {
+
+    HashMap<String, String> result = new HashMap<String, String>();
     JwtTokenParser parser = new JwtTokenParser();
 
     Claims claim = parser.deserialize(authHeader);
@@ -76,7 +79,8 @@ public class AuthController {
     List<User> users = userRepository.findByUsername(username);
 
     if (users.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username not found");
+      result.put("message", "Username not found");
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
     }
 
     User user = users.get(0);

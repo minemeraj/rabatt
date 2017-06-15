@@ -50,7 +50,7 @@ module.exports = function (grunt) {
     },
     concat: {
       dist: {
-        src: ['public/app/app.modules.js', 'public/app/app.routes.js', 'public/app/components/**/*.js'],
+        src: ['public/app/app.modules.js', 'public/app/app.routes.js', 'public/app/services/**/*.js', 'public/app/components/**/*.js'],
         dest: 'public/app/app.js',
       },
     },
