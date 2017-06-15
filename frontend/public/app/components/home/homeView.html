@@ -4,17 +4,19 @@
     <h1 class="page-header">Discount Informations</h1>
   </div>
 </div>
-<div class="row" ng-repeat="discount in discounts">
-  <div class="col-md-8">
-    <h3>{{discount.title}}</h3>
-    <h4>{{discount.category}}</h4>
-    <p>{{discount.description}}</p>
-    <a class="btn btn-primary" href="#!/discount/{{discount.id}}">View More <span class="glyphicon glyphicon-chevron-right"></span></a>
-  </div>
-  <div class="col-md-4">
-    <a href="#">
-      <img class="img-responsive" src="http://placehold.it/700x300" alt="">
-    </a>
+<div ng-repeat="discount in discounts">
+  <div class="row">
+    <div class="col-md-8">
+      <h3>{{discount.title}}</h3>
+      <h4>{{discount.category}}</h4>
+      <p>{{discount.description}}</p>
+      <a class="btn btn-primary" href="#!/discount/{{discount.id}}">View More <span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div>
+    <div class="col-md-4">
+      <a href="#">
+        <img class="img-responsive" src="http://placehold.it/700x300" alt="">
+      </a>
+    </div>
   </div>
   <hr>
 </div>
