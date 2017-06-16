@@ -56,8 +56,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
   public DataSource dataSource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
+    String host = System.getenv("MYSQL_HOST");
     String username = System.getenv("MYSQL_USER");
     String password = System.getenv("MYSQL_PASSWORD");
+
+    if (host == null) {
+      host = env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL);
+    }
 
     if (username == null) {
       username = env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME);
@@ -68,7 +73,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
     dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-    dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
+    dataSource.setUrl(host);
     dataSource.setUsername(username);
     dataSource.setPassword(password);
 
