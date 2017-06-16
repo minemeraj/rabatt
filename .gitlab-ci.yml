@@ -11,7 +11,7 @@ stages:
   - deploy
 
 before_script:
-  - export IMAGE_TAG_SHA=${CI_COMMIT_SHA:0:8}
+  - export IMAGE_TAG_SHA=${CI_COMMIT_SHA:0:7}
 
 maven-build:
   image: maven:3.5.0-jdk-8
