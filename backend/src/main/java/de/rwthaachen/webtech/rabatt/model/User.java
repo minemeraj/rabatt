@@ -115,6 +115,14 @@ public class User extends AbstractCommonEntity {
         .append(this.firstName).append(this.lastName).toHashCode();
   }
 
+  public List<Discount> getDiscounts() {
+    return discounts;
+  }
+
+  public void setDiscounts(List<Discount> discounts) {
+    this.discounts = discounts;
+  }
+
   @Override
   public boolean equals(Object obj) {
     if (this == obj)

@@ -74,8 +74,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
     dataSource.setUrl(host);
-    dataSource.setUsername(username);
-    dataSource.setPassword(password);
+
+    if (username != null) {
+      dataSource.setUsername(username);
+    }
+    if (password != null) {
+      dataSource.setPassword(password);
+    }
 
     return dataSource;
   }
