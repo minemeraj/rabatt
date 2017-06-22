@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: testing
+      MYSQL_DATABASE: rabattdb
+      MYSQL_USER: backend
+      MYSQL_PASSWORD: backend
+
+  backend:
+    depends_on:
+      - db
+    image: registry.gitlab.com/aliariff/rabatt:${TAG}
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      MYSQL_HOST: jdbc:log4jdbc:mysql://db:3306/rabattdb?createDatabaseIfNotExist=true
+      MYSQL_USER: root
+      MYSQL_PASSWORD: testing
+
+volumes:
+  db_data:
