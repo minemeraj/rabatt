@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
@@ -34,6 +33,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
   @Resource
   private Environment env;
+  private static DataSource dataSource;
+  private static Properties properties;
 
   private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
   private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
@@ -53,53 +54,56 @@ public class WebConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public DataSource dataSource() {
-    DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
-    String host = System.getenv("MYSQL_HOST");
-    String username = System.getenv("MYSQL_USER");
-    String password = System.getenv("MYSQL_PASSWORD");
-
-    if (host == null) {
-      host = env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL);
-    }
-
-    if (username == null) {
-      username = env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME);
-    }
-
-    if (password == null) {
-      password = env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD);
-    }
-
-    dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-    dataSource.setUrl(host);
-
-    if (username != null) {
-      dataSource.setUsername(username);
-    }
-    if (password != null) {
-      dataSource.setPassword(password);
-    }
-
-    return dataSource;
-  }
-
-  @Bean
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    setEnvVariable();
     LocalContainerEntityManagerFactoryBean entityManagerFactoryBean =
         new LocalContainerEntityManagerFactoryBean();
-    entityManagerFactoryBean.setDataSource(dataSource());
+    entityManagerFactoryBean.setDataSource(dataSource);
     entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
     entityManagerFactoryBean
         .setPackagesToScan(env.getRequiredProperty(PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN));
 
-    entityManagerFactoryBean.setJpaProperties(hibProperties());
+    entityManagerFactoryBean.setJpaProperties(properties);
 
     return entityManagerFactoryBean;
   }
 
-  private Properties hibProperties() {
+  private void setEnvVariable() {
+    String activeProfile = env.getActiveProfiles()[0];
+    String env = System.getenv("RABATT_ENV");
+    System.out.println(activeProfile);
+    if (activeProfile.equals("production") || (env != null && env.equals("production"))) {
+      productionEnv();
+    } else if (activeProfile.equals("development")) {
+      developmentEnv();
+    } else if (activeProfile.equals("test")) {
+      testEnv();
+    }
+  }
+
+  private void productionEnv() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setDriverClassName("net.sf.log4jdbc.DriverSpy");
+    dataSource.setUrl(System.getenv("MYSQL_HOST"));
+    dataSource.setUsername(System.getenv("MYSQL_USER"));
+    dataSource.setPassword(System.getenv("MYSQL_PASSWORD"));
+    WebConfig.dataSource = dataSource;
+
+    Properties properties = new Properties();
+    properties.put(PROPERTY_NAME_HIBERNATE_DIALECT, "org.hibernate.dialect.MySQL5InnoDBDialect");
+    properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, "false");
+    properties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, "update");
+    WebConfig.properties = properties;
+  }
+
+  private void developmentEnv() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
+    dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
+    dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
+    dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+    WebConfig.dataSource = dataSource;
+
     Properties properties = new Properties();
     properties.put(PROPERTY_NAME_HIBERNATE_DIALECT,
         env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
@@ -107,7 +111,20 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
     properties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO,
         env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
-    return properties;
+    WebConfig.properties = properties;
+  }
+
+  private void testEnv() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setDriverClassName("org.h2.Driver");
+    dataSource.setUrl("jdbc:h2:mem:test");
+    WebConfig.dataSource = dataSource;
+
+    Properties properties = new Properties();
+    properties.put(PROPERTY_NAME_HIBERNATE_DIALECT, "org.hibernate.dialect.H2Dialect");
+    properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, "true");
+    properties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, "create");
+    WebConfig.properties = properties;
   }
 
   @Bean
@@ -117,11 +134,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     return transactionManager;
   }
 
-  @Bean
-  public ResourceBundleMessageSource messageSource() {
-    ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-    source.setBasename(env.getRequiredProperty("message.source.basename"));
-    source.setUseCodeAsDefaultMessage(true);
-    return source;
-  }
 }
