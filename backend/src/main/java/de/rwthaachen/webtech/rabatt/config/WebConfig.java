@@ -71,7 +71,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
   private void setEnvVariable() {
     String activeProfile = env.getActiveProfiles()[0];
     String env = System.getenv("RABATT_ENV");
-    System.out.println(activeProfile);
+
     if (activeProfile.equals("production") || (env != null && env.equals("production"))) {
       productionEnv();
     } else if (activeProfile.equals("development")) {
