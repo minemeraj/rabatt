@@ -34,7 +34,7 @@ public class UserTest {
     AssertAnnotations.assertField(User.class, "email", Column.class);
     AssertAnnotations.assertField(User.class, "password", Column.class);
     AssertAnnotations.assertField(User.class, "address");
-    AssertAnnotations.assertField(User.class, "discounts", OneToMany.class);
+    AssertAnnotations.assertField(User.class, "discounts", OneToMany.class, JsonIgnore.class);
   }
 
   @Test
