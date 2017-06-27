@@ -39,6 +39,7 @@ public class User extends AbstractCommonEntity {
   @JsonIgnore
   private String role;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "creator")
   private List<Discount> discounts;
 
