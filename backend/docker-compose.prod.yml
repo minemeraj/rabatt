@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    env_file:
+      - .env
+
+  backend:
+    depends_on:
+      - db
+    image: registry.gitlab.com/aliariff/rabatt:${TAG}
+    ports:
+      - "8080:8080"
+    restart: always
+    env_file:
+      - .env
+
+volumes:
+  db_data:
+    external: true
