@@ -28,8 +28,8 @@ docker-build:
   script:
   - cd backend
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-  - docker build -t $CI_REGISTRY_IMAGE:${IMAGE_TAG_SHA} .
-  - docker push $CI_REGISTRY_IMAGE:${IMAGE_TAG_SHA}
+  - docker build -t $CI_REGISTRY_IMAGE:${IMAGE_TAG_SHA} -t $CI_REGISTRY_IMAGE:latest .
+  - docker push $CI_REGISTRY_IMAGE
 
 deploy:
   stage: deploy
