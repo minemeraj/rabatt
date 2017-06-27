@@ -1,6 +1,7 @@
 package de.rwthaachen.webtech.rabatt.config;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -19,6 +20,7 @@ public class CORSFilter implements Filter {
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
     response.setHeader("Access-Control-Max-Age", "3600");
+    response.setHeader("X-Hostname", InetAddress.getLocalHost().getHostName());
     response.setHeader("Access-Control-Allow-Headers",
         "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
     chain.doFilter(req, res);
