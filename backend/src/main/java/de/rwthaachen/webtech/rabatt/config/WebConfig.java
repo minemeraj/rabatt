@@ -2,11 +2,9 @@ package de.rwthaachen.webtech.rabatt.config;
 
 import java.util.Properties;
 
-import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.elasticsearch.client.Client;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,9 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -34,7 +29,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Import(RepositoryRestMvcConfiguration.class)
 @ComponentScan(basePackages = "de.rwthaachen.webtech.rabatt")
 @EnableJpaRepositories("de.rwthaachen.webtech.rabatt.repository")
-@EnableElasticsearchRepositories(basePackages = "de.rwthaachen.webtech.rabatt.elasticrepository")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Resource
@@ -155,21 +149,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return transactionManager;
-	}
-
-	@Bean
-	public ElasticsearchOperations elasticsearchTemplate() throws Exception {
-		return new ElasticsearchTemplate(client());
-	}
-
-	@Bean
-	public Client client() {
-		return EmbeddedElasticsearchServer.getInstance().getClient();
-	}
-
-	@PreDestroy
-	public void shutdownElasticsearchServer() {
-		EmbeddedElasticsearchServer.getInstance().shutdown();
 	}
 
 }
