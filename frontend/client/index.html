@@ -71,7 +71,7 @@
     <script src="libs/angular-route/angular-route.min.js"></script>
     <script src="libs/angular-cookies/angular-cookies.min.js"></script>
     <script src="libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src="libs/jquery/dist/jquery.js"></script>
+    <script src="libs/jquery/dist/jquery.js"></script>
     <!-- Custom scripts -->
     <script src="app.js"></script>
     <script src="services/config.js"></script>
@@ -84,14 +84,15 @@
     <script src="controllers/discounts/discountsController.js"></script>
     <script src="controllers/navbarController.js"></script>
     <script src="controllers/loginController.js"></script>
-	
-	<script>
-		$("#filterSearch").on('keyup', function(){
-		  var matcher = new RegExp($(this).val(), 'gi');
-		  $('.filterResult').show().not(function(){
-			  return matcher.test($(this).find('.name,.category').text())
-		  }).hide();
-		});
-	</script>
+    <script>
+    $("#filterSearch").on('keyup', function()
+    {
+      var matcher = new RegExp($(this).val(), 'gi');
+      $('.filterResult').show().not(function()
+      {
+        return matcher.test($(this).find('.name,.category').text())
+      }).hide();
+    });
+    </script>
   </body>
 </html>
