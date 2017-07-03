@@ -10,9 +10,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 @Entity
 @Table(name = "discounts")
+@Document(indexName = "id")
 public class Discount extends AbstractCommonEntity {
 
   @Column(nullable = false)
