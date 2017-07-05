@@ -34,15 +34,15 @@
               <li ng-if="!currentUser.isAuthenticated">
                 <a href="#!/login">Log in</a>
               </li>
-              <li ng-if="!currentUser.isAuthenticated">
+              <!-- <li ng-if="!currentUser.isAuthenticated">
                 <a href="#!/register">Register</a>
-              </li>
+              </li> -->
               <li ng-if="currentUser.isAuthenticated">
                 <a href="#">Hello <span class="glyphicon glyphicon-user"></span> {{currentUser.data.username}}</a>
               </li>
-              <li ng-if="currentUser.isAuthenticated">
+              <!-- <li ng-if="currentUser.isAuthenticated">
                 <a href="#!/discount"><span class="glyphicon glyphicon-cog"></span> Manage Discount</a>
-              </li>
+              </li> -->
               <li ng-if="currentUser.isAuthenticated">
                 <a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Log out</a>
               </li>

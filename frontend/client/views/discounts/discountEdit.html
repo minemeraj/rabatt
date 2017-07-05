@@ -24,7 +24,7 @@
         <br />
         <div class="row">
           <div>
-            Heading:
+            Title:
           </div>
           <div>
             <input type="text" name="title" class="form-control" data-ng-model="discount.title" required />
@@ -64,7 +64,7 @@
               Set your deal
             </button>
             &nbsp;&nbsp;
-            <button class="btn btn-danger" data-ng-if="true" data-ng-click="deleteDiscount()">Delete</button>
+            <button class="btn btn-danger" data-ng-if="discount.id > 0" data-ng-click="deleteDiscount()">Delete</button>
           </div>
         </div>
         <br/>
