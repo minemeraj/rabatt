@@ -1,36 +1,36 @@
 <div class="view">
   <div class="container">
     <div>
-	<div class="col-md-8">
-      <h3 class="name">{{discount.title}}</h3>
-      <h4 class="category">{{discount.category}}</h4>
-      <div class="">
-        <strong class="">Like: {{ discount.voteTemp }}</strong>
+      <div class="col-md-8">
+        <h3 class="name">{{discount.title}}</h3>
+        <h4 class="category">{{discount.category}}</h4>
+        <div class="">
+          <strong class="">Like: {{ discount.voteTemp }}</strong>
+        </div>
+        <div class="">
+          <button class="btn" title="Runtervoten" type="button" data-ng-click="upVote($index)">+</button>
+          <button class="btn" title="Hochvoten" type="button" data-ng-click="downVote($index)">-</button>
+        </div>
+        <div class="">
+          <a href="" class=""><span class="">{{ discount.user }}</span></a>
+          <time class="" datetime="{{ discount.createdAt }}">
+            <span class="">1 hour ago</span>
+          </time>
+        </div>
+        <hr>
+        <div class="row">
+          <a class="" data-ng-href="{{ discount.link }}" target="_blank" rel="">To the deal</a>
+        </div>
+        <br />
+        <div class="row">
+          {{ discount.description }}
+        </div>
       </div>
-      <div class="">
-        <button class="btn" title="Runtervoten" type="button" data-ng-click="upVote($index)">+</button>
-        <button class="btn" title="Hochvoten" type="button" data-ng-click="downVote($index)">-</button>
+      <div class="col-md-4">
+        <a href="#">
+          <img class="img-responsive" ng-src="{{discount.image}}" alt="">
+        </a>
       </div>
-      <div class="">
-        <a href="" class=""><span class="">{{ discount.user }}</span></a>
-        <time class="" datetime="{{ discount.createdAt }}">
-          <span class="">1 hour ago</span>
-        </time>
-      </div><hr>
-	  <div class="row">
-        <a class="" data-ng-href="{{ discount.link }}" target="_blank" rel="">To the deal</a>
-      </div>
-      <br />
-      <div class="row">
-        {{ discount.description }}
-      </div>
-    </div>
-	<div class="col-md-4">
-      <a href="#">
-        <img class="img-responsive" ng-src="{{discount.image}}" alt="">
-      </a>
-    </div>
-     
     </div>
   </div>
 </div>
