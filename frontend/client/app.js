@@ -1,4 +1,4 @@
-﻿const BACKEND_API = 'http://localhost:8080/rabatt/api/v1';
+﻿const BACKEND_API = 'http://kildin.informatik.rwth-aachen.de/rabatt/api/v1';
 const COOKIES_KEY = 'current_user';
 
 (function () {
