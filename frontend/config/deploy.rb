@@ -7,6 +7,7 @@ set :user, 'ali'
 set :deploy_to, "/home/#{fetch(:user)}"
 
 after 'deploy:finishing', 'deploy:restart_docker'
+after 'deploy:finishing_rollback', 'deploy:restart_docker'
 
 namespace :deploy do
   desc 'Restart application'
