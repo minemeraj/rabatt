@@ -7,6 +7,7 @@ WORKDIR /code
 # Install app dependencies
 COPY package.json /code/
 COPY bower.json /code/
+COPY .bowerrc /code/
 RUN npm install
 RUN npm install -g bower
 RUN bower install --allow-root
