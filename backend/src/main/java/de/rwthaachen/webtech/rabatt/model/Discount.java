@@ -15,125 +15,147 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @Table(name = "discounts")
 public class Discount extends AbstractCommonEntity {
 
-  @Column(nullable = false)
-  private String title;
+    @Column(nullable = false)
+    private String title;
 
-  private String link;
+    private String link;
 
-  private String category;
+    private String category;
 
-  @Column(columnDefinition = "LONGTEXT")
-  private String description;
+    @Column(columnDefinition = "LONGTEXT")
+    private String description;
 
-  @Column(name = "valid_from")
-  private Date validFrom;
+    @Column(name = "valid_from")
+    private Date validFrom;
 
-  @Column(name = "valid_until")
-  private Date validUntil;
+    @Column(name = "valid_until")
+    private Date validUntil;
 
-  @Column(columnDefinition = "LONGTEXT")
-  private String image;
+    @Column(columnDefinition = "LONGTEXT")
+    private String image;
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "creator_id")
-  private User creator;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "creator_id")
+    private User creator;
 
-  @Column(name = "vote_temp", columnDefinition = "int(11) default 0")
-  private int voteTemp;
+    @Column(name = "vote_temp", columnDefinition = "int(11) default 0")
+    private int voteTemp;
 
-  public int getVoteTemp() {
-    return voteTemp;
-  }
+    @Column(name = "pos_Vote", columnDefinition = "int(11) default 0")
+    private int posVote;
 
-  public void setVoteTemp(int voteTemp) {
-    this.voteTemp = voteTemp;
-  }
+    @Column(name = "neg_Vote", columnDefinition = "int(11) default 0")
+    private int negVote;
 
-  public String getLink() {
-    return link;
-  }
+    public int getVoteTemp() {
+        return voteTemp;
+    }
 
-  public void setLink(String link) {
-    this.link = link;
-  }
+    public void setVoteTemp(int voteTemp) {
+        this.voteTemp = voteTemp;
+    }
 
-  public String getCategory() {
-    return category;
-  }
+    public String getLink() {
+        return link;
+    }
 
-  public void setCategory(String category) {
-    this.category = category;
-  }
+    public void setLink(String link) {
+        this.link = link;
+    }
 
-  public User getCreator() {
-    return creator;
-  }
+    public String getCategory() {
+        return category;
+    }
 
-  public void setCreator(User creator) {
-    this.creator = creator;
-  }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-  public void setValidUntil(Date validUntil) {
-    this.validUntil = validUntil;
-  }
+    public User getCreator() {
+        return creator;
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public void setValidUntil(Date validUntil) {
+        this.validUntil = validUntil;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public Date getValidFrom() {
-    return validFrom;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public void setValidFrom(Date validFrom) {
-    this.validFrom = validFrom;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public Date getValidUntil() {
-    return validUntil;
-  }
+    public Date getValidFrom() {
+        return validFrom;
+    }
 
-  public void setValidUntill(Date validUntil) {
-    this.validUntil = validUntil;
-  }
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
 
-  public String getImage() {
-    return image;
-  }
+    public Date getValidUntil() {
+        return validUntil;
+    }
 
-  public void setImage(String image) {
-    this.image = image;
-  }
+    public void setValidUntill(Date validUntil) {
+        this.validUntil = validUntil;
+    }
 
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder(17, 37).append(this.title).toHashCode();
-  }
+    public String getImage() {
+        return image;
+    }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (!(obj instanceof User))
-      return false;
-    User other = (User) obj;
-    if (getId() != other.getId())
-      return false;
-    return true;
-  }
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getPosVote() {
+        return posVote;
+    }
+
+    public void setPosVote(int posVote) {
+        this.posVote = posVote;
+    }
+
+    public int getNegVote() {
+        return negVote;
+    }
+
+    public void setNegVote(int negVote) {
+        this.negVote = negVote;
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(this.title).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof User))
+            return false;
+        User other = (User)obj;
+        if (getId() != other.getId())
+            return false;
+        return true;
+    }
 
 }
