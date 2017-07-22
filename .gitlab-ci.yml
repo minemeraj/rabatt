@@ -32,8 +32,11 @@ docker-build:
     - docker push $CI_REGISTRY_IMAGE
 
 deploy:
-  image: ansible/debian_jessie
+  image: ansible/ansible
   stage: deploy
+  environment:
+    name: production
+    url: http://kildin.informatik.rwth-aachen.de:1234/rabatt/api/v1/users/
   script:
     - cd backend
     - ansible-playbook -v -i production site.yml
