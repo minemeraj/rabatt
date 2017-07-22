@@ -1,3 +1,4 @@
+# production
 version: '3'
 
 services:
@@ -14,7 +15,7 @@ services:
       - db
     image: registry.gitlab.com/aliariff/rabatt:${TAG}
     ports:
-      - "8080:8080"
+      - "1234:8080"
     restart: always
     env_file:
       - .env

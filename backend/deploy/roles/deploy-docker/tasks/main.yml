@@ -1,0 +1,13 @@
+- name: Create docker folder
+  file:
+    path: docker
+    state: directory
+    mode: 0755
+
+- name: Copy docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: docker/docker-compose.yml
+
+- name: Docker compose up
+  command: docker-compose -f docker/docker-compose.yml up -d
