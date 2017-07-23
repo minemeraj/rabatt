@@ -39,4 +39,4 @@ deploy:
     url: http://kildin.informatik.rwth-aachen.de:1234/rabatt/api/v1/users/
   script:
     - cd backend/deploy
-    - ansible-playbook site.yml -v -i production --extra-vars "ansible_ssh_pass=${SSH_PASS}"
+    - ansible-playbook site.yml -v -i production --extra-vars "ansible_ssh_pass=$SSH_PASS"
