@@ -5,14 +5,17 @@ services:
 variables:
   DOCKER_DRIVER: overlay
 
+# 3 stages we use
 stages:
   - build
   - package
   - deploy
 
+# run this script before every stages
 before_script:
   - export IMAGE_TAG_SHA=${CI_COMMIT_SHA:0:7}
 
+# building stage, based image maven to do the building and testing, output is war file
 maven-build:
   image: maven:3.5.0-jdk-8
   stage: build
@@ -23,6 +26,7 @@ maven-build:
     paths:
       - backend/target/*.war
 
+# packaging stage, we make docker image based on the war file outputted before
 docker-build:
   stage: package
   script:
@@ -31,6 +35,7 @@ docker-build:
     - docker build -t $CI_REGISTRY_IMAGE:${IMAGE_TAG_SHA} -t $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE
 
+# deploying stage, we use ansible to access the server and deploy the docker image
 deploy:
   image: williamyeh/ansible:debian8
   stage: deploy
