@@ -2,5 +2,3 @@
   hosts: webservers
   roles:
     - deploy-docker
-  environment:
-    TAG: latest

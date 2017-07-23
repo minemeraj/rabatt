@@ -13,7 +13,7 @@ services:
   backend:
     depends_on:
       - db
-    image: registry.gitlab.com/aliariff/rabatt:${TAG}
+    image: registry.gitlab.com/aliariff/rabatt:${IMAGE_TAG_SHA}
     ports:
       - "1234:8080"
     restart: always
