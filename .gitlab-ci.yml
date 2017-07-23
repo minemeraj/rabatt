@@ -18,7 +18,7 @@ maven-build:
   stage: build
   script:
     - cd backend
-    # - mvn package -B
+    - mvn package -B
   artifacts:
     paths:
       - backend/target/*.war
@@ -27,9 +27,9 @@ docker-build:
   stage: package
   script:
     - cd backend
-    # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-    # - docker build -t $CI_REGISTRY_IMAGE:${IMAGE_TAG_SHA} -t $CI_REGISTRY_IMAGE:latest .
-    # - docker push $CI_REGISTRY_IMAGE
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+    - docker build -t $CI_REGISTRY_IMAGE:${IMAGE_TAG_SHA} -t $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE
 
 deploy:
   image: williamyeh/ansible:debian8
