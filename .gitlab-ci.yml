@@ -17,8 +17,8 @@ maven-build:
   image: maven:3.5.0-jdk-8
   stage: build
   script:
-    - cd backend
-    - mvn package -B
+    # - cd backend
+    # - mvn package -B
   artifacts:
     paths:
       - backend/target/*.war
@@ -26,10 +26,10 @@ maven-build:
 docker-build:
   stage: package
   script:
-    - cd backend
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-    - docker build -t $CI_REGISTRY_IMAGE:${IMAGE_TAG_SHA} -t $CI_REGISTRY_IMAGE:latest .
-    - docker push $CI_REGISTRY_IMAGE
+    # - cd backend
+    # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+    # - docker build -t $CI_REGISTRY_IMAGE:${IMAGE_TAG_SHA} -t $CI_REGISTRY_IMAGE:latest .
+    # - docker push $CI_REGISTRY_IMAGE
 
 deploy:
   image: williamyeh/ansible:debian8
@@ -39,5 +39,4 @@ deploy:
     url: http://kildin.informatik.rwth-aachen.de:1234/rabatt/api/v1/users/
   script:
     - cd backend/deploy
-    - ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N ''
-    - ansible-playbook site.yml -v -i production --extra-vars "ansible_ssh_pass=$SSH_PASS"
+    - ansible-playbook site.yml -v -i production --extra-vars "ansible_ssh_pass=$SSH_PASS ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
