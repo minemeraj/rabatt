@@ -39,4 +39,4 @@ deploy:
     url: http://kildin.informatik.rwth-aachen.de:1234/rabatt/api/v1/users/
   script:
     - cd backend/deploy
-    - ansible-playbook site.yml -v -i production --extra-vars "ansible_ssh_pass=$SSH_PASS ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
+    - ansible-playbook site.yml -v -i production --extra-vars "ansible_ssh_pass=$SSH_PASS ansible_ssh_common_args='-o StrictHostKeyChecking=no' IMAGE_TAG_SHA=${IMAGE_TAG_SHA}"
