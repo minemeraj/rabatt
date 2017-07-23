@@ -2,3 +2,5 @@
   hosts: webservers
   roles:
     - deploy-docker
+  environment:
+    IMAGE_TAG_SHA: '{{ IMAGE_TAG_SHA }}'

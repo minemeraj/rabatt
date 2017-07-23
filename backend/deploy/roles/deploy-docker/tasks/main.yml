@@ -1,6 +1,3 @@
-- name: Set env variables
-  command: export IMAGE_TAG_SHA='{{ IMAGE_TAG_SHA }}'
-
 - name: Create docker folder
   file:
     path: docker
