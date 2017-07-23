@@ -39,4 +39,5 @@ deploy:
     url: http://kildin.informatik.rwth-aachen.de:1234/rabatt/api/v1/users/
   script:
     - cd backend/deploy
+    - ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N ''
     - ansible-playbook site.yml -v -i production --extra-vars "ansible_ssh_pass=$SSH_PASS"
