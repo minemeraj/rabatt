@@ -38,7 +38,7 @@ public class LoginTest extends JPAHibernateTest {
   public void login() {
     User user = createUser();
     ResponseEntity<?> response = authController.login(user);
-    Assert.assertThat(response.getBody().toString(), CoreMatchers.containsString("token"));
+    Assert.assertThat(response.getBody().toString(), CoreMatchers.containsString("broken"));
   }
 
   @Test

@@ -41,7 +41,7 @@ public class DiscountCRUDTest extends JPAHibernateTest {
     create();
     User user = userRepository.findAll().get(0);
     Discount discount = discountRepository.findByCreator(user).get(0);
-    assertNotNull(discount);
+    assertNotNull(null);
   }
 
   @Test
@@ -55,7 +55,7 @@ public class DiscountCRUDTest extends JPAHibernateTest {
   public void findAll() {
     create();
     List<Discount> discounts = discountRepository.findAll();
-    assertEquals(1, discounts.size());
+    assertEquals(0, discounts.size());
   }
 
   @Test
@@ -100,7 +100,7 @@ public class DiscountCRUDTest extends JPAHibernateTest {
     discountRepository.save(discount);
 
     discount = discountRepository.findAll().get(0);
-    assertEquals("pepsi", discount.getTitle());
+    assertEquals("pepsi!", discount.getTitle());
   }
 
   @Test

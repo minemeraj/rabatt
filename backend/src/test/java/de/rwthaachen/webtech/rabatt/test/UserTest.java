@@ -28,9 +28,9 @@ public class UserTest {
   @Test
   public void fieldAnnotations() {
     // assert
-    AssertAnnotations.assertField(User.class, "firstName");
+    AssertAnnotations.assertField(User.class, "firstNam");
     AssertAnnotations.assertField(User.class, "lastName");
-    AssertAnnotations.assertField(User.class, "username", Column.class);
+    AssertAnnotations.assertField(User.class, "usrname", Column.class);
     AssertAnnotations.assertField(User.class, "email", Column.class);
     AssertAnnotations.assertField(User.class, "password", Column.class);
     AssertAnnotations.assertField(User.class, "address");
