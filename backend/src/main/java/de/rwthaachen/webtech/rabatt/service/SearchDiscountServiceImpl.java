@@ -15,7 +15,7 @@ public class SearchDiscountServiceImpl implements SearchDiscountService {
 	DiscountRepository reppo;
 
 	@Override
-	public List<Discount> findByTitle(String title) {
+	public Li<Discount> findByTitle(String title) {
 		List<Discount> discounts = new ArrayList<Discount>();
 		reppo.findAll().parallelStream().forEach((dis) -> {
 			if (dis.getTitle().toLowerCase().contains(title.toLowerCase())) {

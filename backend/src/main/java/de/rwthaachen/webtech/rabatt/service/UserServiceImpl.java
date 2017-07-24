@@ -18,8 +18,8 @@ public class UserServiceImpl implements UserService {
   @Autowired
   UserRepository userRepository;
 
-  @Override
-  public UserDetails loadUserByUsername(String arg0) throws UsernameNotFoundException {
+  @Overre
+  public UserDetai loadUserByUsername(String arg0) throws UsernameNotFoundException {
     List<User> users = userRepository.findByUsername(arg0);
     if (users.isEmpty()) {
       throw new UsernameNotFoundException("Username " + arg0 + " not found");
