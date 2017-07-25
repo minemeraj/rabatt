@@ -4,3 +4,14 @@ Gitlab: [![build status](https://gitlab.com/aliariff/rabatt/badges/master/build.
 
 # webtech
 Advanced Web Technologies Project - RWTH Aachen University
+
+
+Conig:
+pom location: backend/pom.xml
+artifacts: backend/target/rabatt.war
+tomcat deploy:
+http://kildin.informatik.rwth-aachen.de/
+admin
+webtech
+
+hook: http://builds.localtunnel.me/github-webhook/
