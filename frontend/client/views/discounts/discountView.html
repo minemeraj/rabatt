@@ -5,7 +5,7 @@
         <h3 class="name">{{discount.title}}</h3>
         <h4 class="category">{{discount.category}}</h4>
         <div class="">
-          <strong class="">Like: {{ discount.voteTemp }}</strong>
+          <strong class="">Likes: {{ discount.posVote }}, Dislikes: {{ discount.negVote }}</strong>
         </div>
         <div class="">
           <button class="btn" title="Runtervoten" type="button" data-ng-click="upVote($index)">+</button>

@@ -17,14 +17,14 @@
     $scope.setPage = setPage;
 
     $scope.upVote = function (index) {
-      const item = $scope.discounts[index];
-      item.voteTemp += 1;
+      const item = $scope.discounts[index] || $scope.discount;
+      item.posVote += 1;
       updateDiscount(item, index);
     };
 
     $scope.downVote = function (index) {
-      const item = $scope.discounts[index];
-      item.voteTemp -= 1;
+      const item = $scope.discounts[index] || $scope.discount;
+      item.negVote += 1;
       updateDiscount(item, index);
     };
 
@@ -64,7 +64,6 @@
     function getDiscountById(discountId) {
       discountService.getDiscountById(discountId).then(
         function (data) {
-          console.log(data);
           $scope.discount = data;
         },
         function (error) {
@@ -76,6 +75,7 @@
       discountService.updateDiscount(discount).then(
         function (data) {
           $scope.discounts[index] = data;
+          $scope.discount = data;
         },
         function (error) {
           $window.alert(`Sorry, an error occurred: ${error.data.message}`);
